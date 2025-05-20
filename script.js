@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Xử lý khi nhấp ra ngoài để đóng profile-info
     document.addEventListener('click', function (event) {
-        if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
+        // Chỉ đóng nếu profile-info đang hiển thị và click không nằm trong profileBtn hoặc profileInfo
+        if (profileInfo.classList.contains('active') && 
+            !profileBtn.contains(event.target) && 
+            !profileInfo.contains(event.target)) {
             profileInfo.classList.remove('active');
         }
     });

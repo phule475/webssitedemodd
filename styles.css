@@ -75,7 +75,7 @@ body {
     border: 1px solid #ccc;
     padding: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 10; /* Tăng z-index để đảm bảo hiển thị trên các phần tử khác */
     color: #000;
     font-size: 13px;
     border-radius: 8px;
@@ -87,7 +87,6 @@ body {
 .profile-info.active {
     display: block;
 }
-
 .menu {
     background: rgba(51, 51, 51, 0.9);
     padding: 12px;
