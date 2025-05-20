@@ -78,7 +78,7 @@ body {
     right: 20px;
     background: #fff;
     border-radius: 12px;
-    padding: 16px;
+    padding: 14px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     z-index: 1000;
     color: #1f2937;
@@ -86,6 +86,7 @@ body {
     width: 250px;
     line-height: 1.6;
     border: 1px solid #e5e7eb;
+    
 }
 
 .profile-info.active {
