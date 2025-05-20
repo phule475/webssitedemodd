@@ -1,14 +1,17 @@
-function toggleProfileInfo(event) {
-    event.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
-    const profileBtn = event.target.closest('.profile-btn');
-    const profileInfo = profileBtn.nextElementSibling;
-    profileInfo.classList.toggle('active');
-}
-
-document.addEventListener('click', function(event) {
-    const profileInfo = document.querySelector('.profile-info');
+document.addEventListener('DOMContentLoaded', function () {
     const profileBtn = document.querySelector('.profile-btn');
-    if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target) && profileInfo.classList.contains('active')) {
-        profileInfo.classList.remove('active');
-    }
+    const profileInfo = document.querySelector('.profile-info');
+
+    // Xử lý khi nhấp vào nút profile
+    profileBtn.addEventListener('click', function (event) {
+        event.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+        profileInfo.classList.toggle('active'); // Chuyển đổi trạng thái hiển thị
+    });
+
+    // Xử lý khi nhấp ra ngoài để đóng profile-info
+    document.addEventListener('click', function (event) {
+        if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
+            profileInfo.classList.remove('active');
+        }
+    });
 });

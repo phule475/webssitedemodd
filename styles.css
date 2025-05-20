@@ -10,23 +10,23 @@ body {
 }
 
 .header {
-    background: rgba(211, 211, 211, 0.85); /* Nền mờ để dễ đọc */
+    background: rgba(211, 211, 211, 0.85);
     padding: 10px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bóng nhẹ để nổi bật */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .social-buttons, .user-actions {
     display: flex;
     justify-content: center;
-    gap: 12px; /* Khoảng cách hợp lý */
+    gap: 12px;
     margin: 8px 0;
 }
 
 .social-buttons button, .cart-btn, .profile-btn {
     background: #fff;
     border: none;
-    width: 44px; /* Kích thước chuẩn cho mobile (dễ chạm) */
+    width: 44px;
     height: 44px;
     cursor: pointer;
     border-radius: 50%;
@@ -34,11 +34,11 @@ body {
     align-items: center;
     justify-content: center;
     transition: transform 0.2s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Bóng nhẹ cho nút */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .social-buttons button img, .cart-btn img, .profile-btn img {
-    width: 60%; /* Tỷ lệ ảnh hợp lý */
+    width: 60%;
     height: 60%;
     object-fit: contain;
 }
@@ -54,14 +54,14 @@ body {
 
 .brand h1 {
     margin: 5px 0;
-    font-size: 22px; /* Kích thước chữ phù hợp */
+    font-size: 22px;
     color: #000;
     font-weight: 700;
 }
 
 .brand p {
     margin: 0;
-    font-size: 13px; /* Chữ nhỏ hơn, gọn gàng */
+    font-size: 13px;
     color: #333;
     line-height: 1.2;
 }
@@ -79,12 +79,12 @@ body {
     color: #000;
     font-size: 13px;
     border-radius: 8px;
-    width: 180px; /* Kích thước vừa phải */
+    width: 180px;
     text-align: left;
     line-height: 1.5;
 }
 
-.profile-btn.active + .profile-info {
+.profile-info.active {
     display: block;
 }
 
@@ -97,7 +97,6 @@ body {
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
 }
 
-/* Responsive cho điện thoại */
 @media (max-width: 600px) {
     .header {
         padding: 8px;
@@ -108,7 +107,7 @@ body {
     }
 
     .social-buttons button, .cart-btn, .profile-btn {
-        width: 40px; /* Thu nhỏ nhẹ trên màn hình nhỏ */
+        width: 40px;
         height: 40px;
     }
 
