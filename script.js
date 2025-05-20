@@ -35,4 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
             profileInfo.classList.remove('active');
         }
     }, { passive: false });
+
+    document.querySelector('.profile-btn').addEventListener('click', function () {
+            document.querySelector('.profile-info').classList.toggle('active');
+        });
 }); 
