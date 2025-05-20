@@ -2,41 +2,49 @@ document.addEventListener('DOMContentLoaded', function () {
     const profileBtn = document.querySelector('.profile-btn');
     const profileInfo = document.querySelector('.profile-info');
 
-    // Hàm xử lý toggle profile-info
+    // Hàm toggle hiển thị thông tin cá nhân
     function toggleProfileInfo(event) {
-        event.preventDefault(); // Ngăn hành vi mặc định trên mobile
-        event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
-        console.log('Toggling profile-info'); // Debug
+        event.preventDefault();
+        event.stopPropagation();
         profileInfo.classList.toggle('active');
     }
 
-    // Gắn sự kiện click cho desktop
-    profileBtn.addEventListener('click', toggleProfileInfo);
+    // Hàm đóng khi click/touch ra ngoài
+    function closeProfileInfo(event) {
+        if (
+            profileInfo.classList.contains('active') &&
+            !profileBtn.contains(event.target) &&
+            !profileInfo.contains(event.target)
+        ) {
+            profileInfo.classList.remove('active');
+        }
+    }
 
-    // Gắn sự kiện touchstart cho mobile
+    // Sự kiện click và touchstart trên nút avatar
+    profileBtn.addEventListener('click', toggleProfileInfo);
     profileBtn.addEventListener('touchstart', toggleProfileInfo, { passive: false });
 
-    // Đóng profile-info khi nhấp/touch ra ngoài
-    document.addEventListener('click', function (event) {
-        if (profileInfo.classList.contains('active') && 
-            !profileBtn.contains(event.target) && 
-            !profileInfo.contains(event.target)) {
-            console.log('Closing profile-info (click outside)'); // Debug
-            profileInfo.classList.remove('active');
-        }
+    // Sự kiện click và touchstart bên ngoài
+    document.addEventListener('click', closeProfileInfo);
+    document.addEventListener('touchstart', closeProfileInfo, { passive: false });
+
+    // Load dữ liệu từ localStorage
+    const saved = localStorage.getItem('userProfile');
+    if (saved) {
+        const userData = JSON.parse(saved);
+        document.getElementById('nameInput').value = userData.name || '';
+        document.getElementById('cardInput').value = userData.card || '';
+        document.getElementById('addressInput').value = userData.address || '';
+    }
+
+    // Lưu thông tin vào localStorage
+    document.getElementById('saveProfileBtn').addEventListener('click', function () {
+        const name = document.getElementById('nameInput').value.trim();
+        const card = document.getElementById('cardInput').value.trim();
+        const address = document.getElementById('addressInput').value.trim();
+
+        const userData = { name, card, address };
+        localStorage.setItem('userProfile', JSON.stringify(userData));
+        alert('Thông tin đã được lưu!');
     });
-
-    // Đóng profile-info khi touch ra ngoài (mobile)
-    document.addEventListener('touchstart', function (event) {
-        if (profileInfo.classList.contains('active') && 
-            !profileBtn.contains(event.target) && 
-            !profileInfo.contains(event.target)) {
-            console.log('Closing profile-info (touch outside)'); // Debug
-            profileInfo.classList.remove('active');
-        }
-    }, { passive: false });
-
-    document.querySelector('.profile-btn').addEventListener('click', function () {
-            document.querySelector('.profile-info').classList.toggle('active');
-        });
-}); 
+});
