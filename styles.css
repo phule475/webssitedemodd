@@ -11,9 +11,7 @@ body {
     padding: 10px 20px;
     justify-content: space-between;
 }
-.social-buttons1{
-    
-}
+
 .social-buttons button {
     background: #fff;
     border: none;
@@ -23,7 +21,12 @@ body {
     cursor: pointer;
     border-radius: 50%;
 }
-.social-buttons button img {
+.social-buttons1 {
+    width: 120%;
+    height: 120%;
+    object-fit: contain;
+}
+.social-buttons2 {
     width: 100%;
     height: 100%;
     object-fit: contain;
