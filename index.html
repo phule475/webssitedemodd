@@ -8,25 +8,32 @@
 </head>
 <body>
     <div class="header">
-        <div class="social-buttons">
-            <button><img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook"></button>
-            <button><img src="https://img.icons8.com/color/48/000000/tiktok--v1.png" alt="TikTok"></button>
-        </div>
-        <div class="brand">
-            <h1>Đom Đóm</h1>
-            <p>99 Thanh Tịnh, TTDT Chí Linh, Vũng Tàu, BR-VT</p>
-        </div>
-        <div class="user-actions">
-            <button class="cart-btn"><img src="https://img.icons8.com/ios-filled/50/000000/shopping-cart.png" alt="Cart"></button>
-            <button class="profile-btn"><img src="https://img.icons8.com/ios-filled/50/000000/user.png" alt="Profile"></button>
-            <div class="profile-info">
-                <p><strong>Họ tên:</strong> Phú Lê</p>
-                <p><strong>Số thẻ:</strong> 124</p>
-                <p><strong>Địa chỉ:</strong> Vũng Tàu</p>
+        <div class="top-bar">
+            <div class="brand">
+                <h1>Đom Đóm</h1>
+                <p>99 Thanh Tịnh, TTDT Chí Linh, Vũng Tàu, BR-VT</p>
+            </div>
+            <div class="icon-row">
+                <button><img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook"></button>
+                <button><img src="https://img.icons8.com/color/48/tiktok--v1.png" alt="TikTok"></button>
+                <button class="cart-btn"><img src="https://img.icons8.com/ios-filled/50/shopping-cart.png" alt="Giỏ hàng"></button>
+                <button class="profile-btn"><img src="https://img.icons8.com/ios-filled/50/user.png" alt="Tài khoản"></button>
             </div>
         </div>
+
+        <div class="profile-info">
+            <p><strong>Họ tên:</strong> Phú Lê</p>
+            <p><strong>Số thẻ:</strong> 124</p>
+            <p><strong>Địa chỉ:</strong> Vũng Tàu</p>
+        </div>
     </div>
+
     <div class="menu">▲ MENU</div>
-    <script src="script.js"></script>
+
+    <script>
+        document.querySelector('.profile-btn').addEventListener('click', function () {
+            document.querySelector('.profile-info').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
