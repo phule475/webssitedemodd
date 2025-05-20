@@ -84,7 +84,7 @@ body {
     color: #1f2937;
     font-size: 15px;
     width: 250px;
-    line-height: 1.7;
+    line-height: 1.6;
     border: 1px solid #e5e7eb;
 }
 
@@ -96,37 +96,25 @@ body {
 
 .profile-info label {
     display: block;
-    margin: 10px 0;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 6px;
-    font-weight: 500;
+    margin-bottom: 10px;
 }
 
 .profile-info input {
     width: 100%;
-    margin-top: 4px;
     padding: 6px 10px;
-    font-size: 15px;
     border-radius: 6px;
-    border: 1px solid #d1d5db;
-    background-color: #f9fafb;
-    color: #1f2937;
+    border: 1px solid #ccc;
+    margin-top: 4px;
 }
 
 .profile-info button {
     margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #1f2937;
-    color: #fff;
-    border: none;
+    padding: 8px 12px;
     border-radius: 6px;
+    border: none;
+    background: #1f2937;
+    color: white;
     cursor: pointer;
-    transition: background 0.3s ease;
-    width: 100%;
-}
-
-.profile-info button:hover {
-    background-color: #111827;
 }
 
 .menu {
@@ -138,8 +126,54 @@ body {
     margin-top: auto;
     border-radius: 12px 12px 0 0;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
+.menu-dropdown {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    width: 220px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+}
+
+.menu-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.menu-item {
+    background: #1f2937;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 6px 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    font-size: 16px;
+}
+
+.menu-item:hover {
+    background: #374151;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
     .top-bar {
         flex-direction: column;

@@ -1,50 +1,73 @@
 document.addEventListener('DOMContentLoaded', function () {
     const profileBtn = document.querySelector('.profile-btn');
     const profileInfo = document.querySelector('.profile-info');
+    const nameInput = document.getElementById('name');
+    const cardInput = document.getElementById('card');
+    const addressInput = document.getElementById('address');
+    const saveBtn = document.getElementById('saveProfile');
 
-    // Hàm toggle hiển thị thông tin cá nhân
+    // Load data từ localStorage nếu có
+    const savedProfile = JSON.parse(localStorage.getItem('profileInfo'));
+    if (savedProfile) {
+        nameInput.value = savedProfile.name || '';
+        cardInput.value = savedProfile.card || '';
+        addressInput.value = savedProfile.address || '';
+    }
+
+    // Hiện/ẩn profile
     function toggleProfileInfo(event) {
         event.preventDefault();
         event.stopPropagation();
         profileInfo.classList.toggle('active');
     }
 
-    // Hàm đóng khi click/touch ra ngoài
-    function closeProfileInfo(event) {
-        if (
-            profileInfo.classList.contains('active') &&
-            !profileBtn.contains(event.target) &&
-            !profileInfo.contains(event.target)
-        ) {
-            profileInfo.classList.remove('active');
-        }
-    }
-
-    // Sự kiện click và touchstart trên nút avatar
     profileBtn.addEventListener('click', toggleProfileInfo);
     profileBtn.addEventListener('touchstart', toggleProfileInfo, { passive: false });
 
-    // Sự kiện click và touchstart bên ngoài
-    document.addEventListener('click', closeProfileInfo);
-    document.addEventListener('touchstart', closeProfileInfo, { passive: false });
+    document.addEventListener('click', function (event) {
+        if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
+            profileInfo.classList.remove('active');
+        }
+    });
 
-    // Load dữ liệu từ localStorage
-    const saved = localStorage.getItem('userProfile');
-    if (saved) {
-        const userData = JSON.parse(saved);
-        document.getElementById('nameInput').value = userData.name || '';
-        document.getElementById('cardInput').value = userData.card || '';
-        document.getElementById('addressInput').value = userData.address || '';
-    }
+    document.addEventListener('touchstart', function (event) {
+        if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
+            profileInfo.classList.remove('active');
+        }
+    }, { passive: false });
 
-    // Lưu thông tin vào localStorage
-    document.getElementById('saveProfileBtn').addEventListener('click', function () {
-        const name = document.getElementById('nameInput').value.trim();
-        const card = document.getElementById('cardInput').value.trim();
-        const address = document.getElementById('addressInput').value.trim();
+    // Lưu profile vào localStorage
+    saveBtn.addEventListener('click', function () {
+        const profile = {
+            name: nameInput.value,
+            card: cardInput.value,
+            address: addressInput.value
+        };
+        localStorage.setItem('profileInfo', JSON.stringify(profile));
+        alert('Đã lưu thông tin!');
+        profileInfo.classList.remove('active');
+    });
 
-        const userData = { name, card, address };
-        localStorage.setItem('userProfile', JSON.stringify(userData));
-        alert('Thông tin đã được lưu!');
+    // Xử lý menu xổ mượt
+    const menuBtn = document.querySelector('.menu');
+    const menuDropdown = document.getElementById('menuDropdown');
+
+    menuBtn.addEventListener('click', function () {
+        menuDropdown.classList.toggle('show');
+    });
+
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', function () {
+            const link = this.dataset.link;
+            alert('Chuyển đến: ' + link);
+            // window.location.href = link; // thay bằng điều hướng thực
+            menuDropdown.classList.remove('show');
+        });
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!menuBtn.contains(event.target) && !menuDropdown.contains(event.target)) {
+            menuDropdown.classList.remove('show');
+        }
     });
 });

@@ -21,21 +21,20 @@
             </div>
         </div>
 
-        <div class="profile-info" id="profileInfo">
-    <label><strong>Họ tên:</strong>
-        <input type="text" value="Phú Lê" id="nameInput">
-    </label>
-    <label><strong>Số thẻ:</strong>
-        <input type="text" value="124" id="cardInput">
-    </label>
-    <label><strong>Địa chỉ:</strong>
-        <input type="text" value="Vũng Tàu" id="addressInput">
-    </label>
-    <button id="saveProfileBtn">Lưu</button>
-</div>
+        <div class="profile-info">
+            <label><strong>Họ tên:</strong><input type="text" id="name" placeholder="Nhập tên"></label>
+            <label><strong>Số thẻ:</strong><input type="text" id="card" placeholder="Nhập số thẻ"></label>
+            <label><strong>Địa chỉ:</strong><input type="text" id="address" placeholder="Nhập địa chỉ"></label>
+            <button id="saveProfile">Lưu</button>
+        </div>
     </div>
 
     <div class="menu">▲ MENU</div>
+
+    <div class="menu-dropdown" id="menuDropdown">
+        <button class="menu-item" data-link="#domdom1">Đom Đóm 1</button>
+        <button class="menu-item" data-link="#domdom2">Đom Đóm 2</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
