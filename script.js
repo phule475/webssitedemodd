@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Hàm xử lý toggle profile-info
     function toggleProfileInfo(event) {
+        event.preventDefault(); // Ngăn hành vi mặc định trên mobile
         event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
-        event.preventDefault(); // Ngăn hành vi mặc định (quan trọng trên mobile)
+        console.log('Toggling profile-info'); // Debug
         profileInfo.classList.toggle('active');
     }
 
@@ -13,13 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
     profileBtn.addEventListener('click', toggleProfileInfo);
 
     // Gắn sự kiện touchstart cho mobile
-    profileBtn.addEventListener('touchstart', toggleProfileInfo);
+    profileBtn.addEventListener('touchstart', toggleProfileInfo, { passive: false });
 
     // Đóng profile-info khi nhấp/touch ra ngoài
     document.addEventListener('click', function (event) {
         if (profileInfo.classList.contains('active') && 
             !profileBtn.contains(event.target) && 
             !profileInfo.contains(event.target)) {
+            console.log('Closing profile-info (click outside)'); // Debug
             profileInfo.classList.remove('active');
         }
     });
@@ -29,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (profileInfo.classList.contains('active') && 
             !profileBtn.contains(event.target) && 
             !profileInfo.contains(event.target)) {
+            console.log('Closing profile-info (touch outside)'); // Debug
             profileInfo.classList.remove('active');
         }
-    });
-});
+    }, { passive: false });
+}); 

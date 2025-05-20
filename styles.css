@@ -69,13 +69,13 @@ body {
 .profile-info {
     display: none;
     position: absolute;
-    top: 60px;
+    top: 60px; /* Vị trí mặc định cho desktop */
     right: 10px;
     background: #fff;
     border: 1px solid #ccc;
     padding: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 100; /* Tăng z-index để đảm bảo hiển thị trên mobile */
+    z-index: 1000; /* Tăng z-index để đảm bảo hiển thị trên tất cả phần tử */
     color: #000;
     font-size: 13px;
     border-radius: 8px;
@@ -120,11 +120,13 @@ body {
     }
 
     .profile-info {
-        top: 50px; /* Giảm top để đảm bảo hiển thị trong màn hình nhỏ */
-        right: 8px;
-        width: 160px;
-        padding: 10px;
-        max-width: 90vw; /* Giới hạn chiều rộng để không tràn màn hình */
+        top: 48px; /* Giảm top để hiển thị gần nút profile hơn */
+        right: 5px; /* Giảm right để tránh tràn màn hình */
+        width: 150px; /* Thu nhỏ để vừa màn hình mobile */
+        max-width: 85vw; /* Giới hạn chiều rộng tối đa */
+        font-size: 12px; /* Giảm kích thước chữ cho mobile */
+        padding: 8px;
+        z-index: 1000; /* Đảm bảo hiển thị trên mobile */
     }
 
     .menu {
