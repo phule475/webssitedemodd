@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const addressInput = document.getElementById('address');
     const saveBtn = document.getElementById('saveProfile');
 
-    // Load data từ localStorage nếu có
+    // Load dữ liệu từ localStorage
     const savedProfile = JSON.parse(localStorage.getItem('profileInfo'));
     if (savedProfile) {
         nameInput.value = savedProfile.name || '';
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         addressInput.value = savedProfile.address || '';
     }
 
-    // Hiện/ẩn profile
+    // Toggle profile-info
     function toggleProfileInfo(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     profileBtn.addEventListener('click', toggleProfileInfo);
     profileBtn.addEventListener('touchstart', toggleProfileInfo, { passive: false });
 
+    // Đóng profile-info nếu click hoặc touch ra ngoài
     document.addEventListener('click', function (event) {
         if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
             profileInfo.classList.remove('active');
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }, { passive: false });
 
-    // Lưu profile vào localStorage
+    // Lưu vào localStorage mà không hiển thị alert
     saveBtn.addEventListener('click', function () {
         const profile = {
             name: nameInput.value,
@@ -44,11 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
             address: addressInput.value
         };
         localStorage.setItem('profileInfo', JSON.stringify(profile));
-        alert('Đã lưu thông tin!');
-        profileInfo.classList.remove('active');
+        profileInfo.classList.remove('active'); // Ẩn sau khi lưu
     });
 
-    // Xử lý menu xổ mượt
+    // Xử lý menu xổ
     const menuBtn = document.querySelector('.menu');
     const menuDropdown = document.getElementById('menuDropdown');
 
@@ -56,15 +56,17 @@ document.addEventListener('DOMContentLoaded', function () {
         menuDropdown.classList.toggle('show');
     });
 
+    // Xử lý click vào các menu-item
     document.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', function () {
             const link = this.dataset.link;
-            alert('Chuyển đến: ' + link);
-            // window.location.href = link; // thay bằng điều hướng thực
-            menuDropdown.classList.remove('show');
+            // Thực hiện điều hướng thật (tùy chọn)
+            // window.location.href = link;
+            menuDropdown.classList.remove('show'); // Ẩn menu sau khi chọn
         });
     });
 
+    // Đóng menu-dropdown nếu click bên ngoài
     document.addEventListener('click', function (event) {
         if (!menuBtn.contains(event.target) && !menuDropdown.contains(event.target)) {
             menuDropdown.classList.remove('show');
