@@ -46,7 +46,7 @@ body {
     margin-left: 10px;
 }
 .profile-btn {
-    background: #fff;
+    
     border: 1px solid #ccc;
     border-radius: 50%;
     width: 40px;
@@ -76,4 +76,14 @@ body {
     color: #fff;
     text-align: center;
     padding: 10px 0;
+}
+.profile-btn1 {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    position: relative;
+    
 }
