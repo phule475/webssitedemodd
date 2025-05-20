@@ -10,23 +10,23 @@ body {
 }
 
 .header {
-    background: rgba(211, 211, 211, 0.85);
+    background: rgba(211, 211, 211, 0.85); /* Nền mờ để dễ đọc */
     padding: 10px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bóng nhẹ để nổi bật */
 }
 
 .social-buttons, .user-actions {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 12px; /* Khoảng cách hợp lý */
     margin: 8px 0;
 }
 
 .social-buttons button, .cart-btn, .profile-btn {
     background: #fff;
     border: none;
-    width: 44px;
+    width: 44px; /* Kích thước chuẩn cho mobile (dễ chạm) */
     height: 44px;
     cursor: pointer;
     border-radius: 50%;
@@ -34,11 +34,11 @@ body {
     align-items: center;
     justify-content: center;
     transition: transform 0.2s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Bóng nhẹ cho nút */
 }
 
 .social-buttons button img, .cart-btn img, .profile-btn img {
-    width: 60%;
+    width: 60%; /* Tỷ lệ ảnh hợp lý */
     height: 60%;
     object-fit: contain;
 }
@@ -54,14 +54,14 @@ body {
 
 .brand h1 {
     margin: 5px 0;
-    font-size: 22px;
+    font-size: 22px; /* Kích thước chữ phù hợp */
     color: #000;
     font-weight: 700;
 }
 
 .brand p {
     margin: 0;
-    font-size: 13px;
+    font-size: 13px; /* Chữ nhỏ hơn, gọn gàng */
     color: #333;
     line-height: 1.2;
 }
@@ -79,7 +79,7 @@ body {
     color: #000;
     font-size: 13px;
     border-radius: 8px;
-    width: 180px;
+    width: 180px; /* Kích thước vừa phải */
     text-align: left;
     line-height: 1.5;
 }
@@ -108,7 +108,7 @@ body {
     }
 
     .social-buttons button, .cart-btn, .profile-btn {
-        width: 40px;
+        width: 40px; /* Thu nhỏ nhẹ trên màn hình nhỏ */
         height: 40px;
     }
 
