@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đom Đóm</title>
+    <title>Firefly</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <div class="top-bar">
             <div class="brand">
                 <h1>Bia +</h1>
-                <p>99 Thanh Tịnh, TTDT Chí Linh, Vũng Tàu, BR-VT</p>
+                <p>99 Thanh Tinh, TTDT Chi Linh, Vung Tau, BR-VT</p>
             </div>
             <div class="icon-row">
                 <a href="https://www.facebook.com/minh.hoang.610606?locale=vi_VN" target="_blank" rel="noopener">
@@ -20,16 +20,16 @@
                     </button>
                 </a>
                 <button><img src="https://img.icons8.com/color/48/tiktok--v1.png" alt="TikTok"></button>
-                <button class="cart-btn"><img src="https://img.icons8.com/ios-filled/50/shopping-cart.png" alt="Giỏ hàng"></button>
-                <button class="profile-btn"><img src="https://img.icons8.com/ios-filled/50/user.png" alt="Tài khoản"></button>
+                <button class="cart-btn"><img src="https://img.icons8.com/ios-filled/50/shopping-cart.png" alt="Cart"></button>
+                <button class="profile-btn"><img src="https://img.icons8.com/ios-filled/50/user.png" alt="Profile"></button>
             </div>
         </div>
 
         <div class="profile-info">
-            <label><strong>Họ tên:</strong><input type="text" id="name" placeholder="Nhập tên"></label>
-            <label><strong>Số thẻ:</strong><input type="text" id="card" placeholder="Nhập số thẻ"></label>
-            <label><strong>Địa chỉ:</strong><input type="text" id="address" placeholder="Nhập địa chỉ"></label>
-            <button id="saveProfile">Lưu</button>
+            <label><strong>Name:</strong><input type="text" id="name" placeholder="Enter name"></label>
+            <label><strong>Card Number:</strong><input type="text" id="card" placeholder="Enter card number"></label>
+            <label><strong>Address:</strong><input type="text" id="address" placeholder="Enter address"></label>
+            <button id="save-profile">Save</button>
         </div>
     </div>
 
@@ -43,15 +43,19 @@
         <div class="slide">
             <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Food 3">
         </div>
+        <div class="prev" onclick="changeSlide(-1)">❮</div>
+        <div class="next" onclick="changeSlide(1)">❯</div>
     </div>
 
     <div class="menu">▲ MENU</div>
 
-    <div class="menu-dropdown" id="menuDropdown">
-        <button class="menu-item" data-link="#domdom1">Đom Đóm 1</button>
-        <button class="menu-item" data-link="#domdom2">Đom Đóm 2</button>
+    <div class="menu-dropdown" id="menu-dropdown">
+        <button class="menu-item" data-link="#firefly1">Firefly 1</button>
+        <button class="menu-item" data-link="#firefly2">Firefly 2</button>
     </div>
-    
+
+    <div class="notification" id="notification">Information Saved</div>
+
     <script src="script.js"></script>
 </body>
 </html>
