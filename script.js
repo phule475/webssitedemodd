@@ -85,6 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 slideIndex++;
                 if (slideIndex > slides.length) { slideIndex = 1; }
                 slides[slideIndex - 1].style.display = "block";
-                setTimeout(showSlides, 5000); // Change image every 3 seconds
+                setTimeout(showSlides, 10000); // Change image every 3 seconds
             }
         });
