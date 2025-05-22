@@ -146,15 +146,16 @@ body {
         }
 
         .menu {
-            background: linear-gradient(135deg, #1f2937, #374151);
-            padding: 16px;
-            text-align: center;
-            font-size: 18px;
-            color: #fff;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-        }
+        background: linear-gradient(135deg, #1f2937, #374151);
+        padding: 16px;
+        text-align: center;
+        font-size: 18px;
+        color: #fff;
+        margin-top: auto;
+        border-radius: 12px 12px 0 0;
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
 
         .menu-dropdown {
             opacity: 0;
