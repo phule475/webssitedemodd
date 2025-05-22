@@ -95,12 +95,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (slideIndex > slides.length) { slideIndex = 1; }
         if (slideIndex < 1) { slideIndex = slides.length; }
         slides[slideIndex - 1].style.display = "block";
-        autoSlideTimeout = setTimeout(showSlides, 10000); // Change image every 10 seconds
+        autoSlideTimeout = setTimeout(showSlides, 3000); // Change image every 10 seconds
     }
 
     // Manual navigation with arrow buttons
     window.changeSlide = function(n) {
-        clearTimeout(autoSlideTimeout); // Stop auto slideshow
+         // Stop auto slideshow
         slideIndex += n - 1; // Adjust slideIndex for the next showSlides call
         showSlides(); // Show the new slide and restart auto slideshow
     };
