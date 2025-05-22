@@ -85,23 +85,21 @@ document.addEventListener('DOMContentLoaded', function () {
     let slideIndex = 0;
     let autoSlideTimeout;
     showSlides();
-
-    function showSlides() {
-        let slides = document.getElementsByClassName("slide");
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1; }
-        if (slideIndex < 1) { slideIndex = slides.length; }
-        slides[slideIndex - 1].style.display = "block";
-        autoSlideTimeout = setTimeout(showSlides, 3000); // Change image every 10 seconds
-    }
-
     // Manual navigation with arrow buttons
     window.changeSlide = function(n) {
-         // Stop auto slideshow
-        slideIndex += n - 1; // Adjust slideIndex for the next showSlides call
+        slideIndex += n;
         showSlides(); // Show the new slide and restart auto slideshow
     };
+    function showSlides() {
+    let slides = document.getElementsByClassName("slide");
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    if (slideIndex > slides.length) { slideIndex = 1; }
+    if (slideIndex < 1) { slideIndex = slides.length; }
+    slides[slideIndex - 1].style.display = "block";
+    clearTimeout(autoSlideTimeout); // Clear previous timeout
+    autoSlideTimeout = setTimeout(showSlides, 3000); // Restart auto slideshow
+    }
+    
 });
