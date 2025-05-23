@@ -95,11 +95,12 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
-    if (slideIndex > slides.length) { slideIndex = 1; }
-    if (slideIndex < 1) { slideIndex = slides.length; }
-    slides[slideIndex - 1].style.display = "block";
-    clearTimeout(autoSlideTimeout); // Clear previous timeout
-    autoSlideTimeout = setTimeout(showSlides, 3000); // Restart auto slideshow
-    }
+    if (slideIndex >= slides.length) { slideIndex = 0; }
+    if (slideIndex < 0) { slideIndex = slides.length - 1; }
+    slides[slideIndex].style.display = "block";
+    slideIndex++; // next slide
+    clearTimeout(autoSlideTimeout);
+    autoSlideTimeout = setTimeout(showSlides, 3000);
+}
     
 });

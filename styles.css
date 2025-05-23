@@ -146,16 +146,18 @@ body {
         }
 
         .menu {
-        background: linear-gradient(135deg, #1f2937, #374151);
-        padding: 16px;
-        text-align: center;
-        font-size: 18px;
-        color: #fff;
-        margin-top: auto;
-        border-radius: 12px 12px 0 0;
-        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-    }
+            
+            background: linear-gradient(135deg, #1f2937, #374151);
+            padding: 16px;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            text-align: center;
+            
+        }
 
         .menu-dropdown {
             opacity: 0;
@@ -184,7 +186,7 @@ body {
             pointer-events: auto;
         }
 
-         .menu-item {
+        .menu-item {
             background: #1f2937;
             color: white;
             border: none;
@@ -206,6 +208,7 @@ body {
             position: relative;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin:20px auto;
         }
 
         .slide {
