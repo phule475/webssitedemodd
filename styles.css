@@ -156,7 +156,14 @@ body {
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             text-align: center;
-            
+            position: fixed; /* Giữ menu cố định */
+            bottom: 0; /* Đặt ở dưới cùng */
+            left: 0;
+            right: 0;
+            margin: 0 auto; /* Canh giữa nếu cần */
+            width: 95%; /* Độ rộng tương thích với giao diện */
+            max-width: 800px; /* Giới hạn độ rộng tối đa */
+            z-index: 1000; /* Đảm bảo menu hiển thị trên các phần tử khác */
         }
 
         .menu-dropdown {
@@ -184,6 +191,7 @@ body {
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
+            
         }
 
         .menu-item {
