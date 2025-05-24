@@ -314,7 +314,7 @@ body {
                 height: 300px; /* Chiều cao cố định */
                 margin: 10px auto;
                 margin-bottom: 70px;
-                aspect-ratio: 16 / 9; /* Tỷ lệ khung hình 16:9 */
+                 /* Tỷ lệ khung hình 16:9 */
             }
 
             .prev, .next {
