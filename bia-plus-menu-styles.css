@@ -131,7 +131,7 @@ body {
     .grid-container {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Reduced from 200px to 100px */
         gap: 10px; /* Reduced gap */
-        padding: 10px; /* Reduced padding */
+        padding: 55px; /* Reduced padding */
     }
 
     .grid-item {
