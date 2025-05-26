@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Manual navigation with arrow buttons
     window.changeSlide = function(n) {
         slideIndex += n;
-        showSlides(); // Show the new slide and restart auto slideshow
+        showSlides();
     };
 
     // Start the slideshow
