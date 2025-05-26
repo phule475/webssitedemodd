@@ -14,142 +14,81 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease; /* Thêm hiệu ứng chuyển đổi mượt */
+            transition: all 0.3s ease;
         }
 
+        /* Giao diện mặc định (Mobile) */
         .header {
-            background: rgba(255, 255, 255, 0.96);
-            padding: 15px;
-            border-radius: 0 0 12px 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            color: #1f2937;
+            background: rgba(0, 0, 0, 0.7); /* Gradient tối như trong ảnh */
+            padding: 20px;
+            text-align: center;
             position: relative;
+            z-index: 10;
         }
 
-        .top-bar {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .brand h1 {
-            margin: 0;
-            font-size: 22px;
+        .logo {
+            font-size: 28px;
             font-weight: 700;
-            color: #111827;
+            color: #fff;
+            margin: 0;
         }
 
-        .brand p {
-            margin: 4px 0 0;
-            font-size: 14px;
-            color: #4b5563;
-        }
-
-        .icon-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .icon-row button {
-            background: #fff;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            border: 1px solid #e5e7eb;
-            padding: 0;
-            cursor: pointer;
-            transition: transform 0.2s ease, background 0.3s ease;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .icon-row button:hover {
-            transform: scale(1.1);
-            background-color: #f0f4f8;
-        }
-
-        .icon-row img {
-            width: 20px;
-            height: 20px;
-        }
-
-        .profile-info {
-            display: none;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.95);
-            background: #fff;
-            border-radius: 12px;
-            padding: 14px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-            z-index: 1000;
+        .contact-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #fff;
             color: #1f2937;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             font-size: 14px;
-            width: 90%;
+        }
+
+        .contact-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .seasonal-flavors {
+            text-align: center;
+            background: linear-gradient(to bottom, #ff8c00, #ff4500); /* Gradient vàng-đỏ như ảnh */
+            padding: 40px 20px;
+            border-radius: 10px;
+            color: #fff;
             max-width: 300px;
-            line-height: 1.6;
-            border: 1px solid #e5e7eb;
+            margin: 0 auto;
         }
 
-        .profile-info.active {
-            display: block;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+        .seasonal-flavors h2 {
+            font-size: 32px;
+            margin: 0 0 10px;
+            font-weight: 700;
         }
 
-        .profile-info label {
-            display: block;
+        .seasonal-flavors p {
+            font-size: 16px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .icon-leaf {
+            font-size: 50px;
             margin-bottom: 10px;
         }
 
-        .profile-info input {
-            width: 92.5%;
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin-top: 4px;
-        }
-
-        .profile-info button {
-            margin-top: 10px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: none;
-            background: #1f2937;
-            color: white;
-            cursor: pointer;
-        }
-
-        .notification {
+        /* Ẩn các phần không cần thiết trên mobile */
+        .desktop-only {
             display: none;
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            z-index: 2000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            transition: opacity 0.5s ease;
-        }
-
-        .notification.active {
-            display: block;
-            animation: fadeInOut 3s ease forwards;
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { opacity: 0; }
         }
 
         .menu {
@@ -210,69 +149,6 @@
             font-size: 14px;
         }
 
-        .slideshow-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            margin: 10px auto;
-            margin-bottom: 60px;
-            position: relative;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            overflow: hidden;
-        }
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: none;
-        }
-
-        .slide.active {
-            display: block;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #1f2937;
-            user-select: none;
-            transition: background 0.3s ease;
-            z-index: 10;
-        }
-
-        .prev:hover, .next:hover {
-            background: rgba(255, 255, 255, 1);
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-
         .toggle-mode {
             position: fixed;
             top: 10px;
@@ -291,24 +167,60 @@
             background-color: #374151;
         }
 
+        /* Giao diện Desktop (min-width: 600px) */
         @media (min-width: 600px) {
+            /* Desktop Header */
+            .header {
+                background: rgba(255, 255, 255, 0.96);
+                padding: 15px;
+                border-radius: 0 0 12px 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                color: #1f2937;
+                position: relative;
+            }
+
             .top-bar {
+                display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
+                gap: 10px;
             }
 
             .brand h1 {
+                margin: 0;
                 font-size: 28px;
+                font-weight: 700;
+                color: #111827;
             }
 
             .brand p {
+                margin: 4px 0 0;
                 font-size: 16px;
+                color: #4b5563;
+            }
+
+            .icon-row {
+                display: flex;
+                gap: 10px;
+                align-items: center;
             }
 
             .icon-row button {
+                background: #fff;
+                border-radius: 50%;
                 width: 48px;
                 height: 48px;
+                border: 1px solid #e5e7eb;
+                padding: 0;
+                cursor: pointer;
+                transition: transform 0.2s ease, background 0.3s ease;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            }
+
+            .icon-row button:hover {
+                transform: scale(1.1);
+                background-color: #f0f4f8;
             }
 
             .icon-row img {
@@ -317,7 +229,80 @@
             }
 
             .profile-info {
+                display: none;
+                opacity: 0;
+                transform: scale(0.95);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.95);
+                background: #fff;
+                border-radius: 12px;
+                padding: 14px;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+                z-index: 1000;
+                color: #1f2937;
+                font-size: 14px;
                 width: 250px;
+                line-height: 1.6;
+                border: 1px solid #e5e7eb;
+            }
+
+            .profile-info.active {
+                display: block;
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .profile-info label {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .profile-info input {
+                width: 92.5%;
+                padding: 6px 10px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                margin-top: 4px;
+            }
+
+            .profile-info button {
+                margin-top: 10px;
+                padding: 8px 12px;
+                border-radius: 6px;
+                border: none;
+                background: #1f2937;
+                color: white;
+                cursor: pointer;
+            }
+
+            .notification {
+                display: none;
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #28a745;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                z-index: 2000;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                transition: opacity 0.5s ease;
+            }
+
+            .notification.active {
+                display: block;
+                animation: fadeInOut 3s ease forwards;
+            }
+
+            @keyframes fadeInOut {
+                0% { opacity: 0; }
+                10% { opacity: 1; }
+                90% { opacity: 1; }
+                100% { opacity: 0; }
             }
 
             .slideshow-container {
@@ -326,13 +311,71 @@
                 height: 400px;
                 margin: 20px auto;
                 margin-bottom: 70px;
-                aspect-ratio: none;
+                position: relative;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                overflow: hidden;
+            }
+
+            .slide {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: none;
+            }
+
+            .slide.active {
+                display: block;
+            }
+
+            .slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
             }
 
             .prev, .next {
+                cursor: pointer;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
                 width: 40px;
                 height: 40px;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 font-size: 24px;
+                color: #1f2937;
+                user-select: none;
+                transition: background 0.3s ease;
+                z-index: 10;
+            }
+
+            .prev:hover, .next:hover {
+                background: rgba(255, 255, 255, 1);
+            }
+
+            .prev {
+                left: 10px;
+            }
+
+            .next {
+                right: 10px;
+            }
+
+            /* Ẩn giao diện mobile trên desktop */
+            .mobile-only {
+                display: none;
+            }
+
+            .desktop-only {
+                display: block;
             }
 
             .menu {
@@ -355,7 +398,7 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Profile Logic
+            // Profile Logic (chỉ hoạt động trên desktop)
             const profileBtn = document.querySelector('.profile-btn');
             const profileInfo = document.querySelector('.profile-info');
             const nameInput = document.getElementById('name');
@@ -364,53 +407,50 @@
             const saveBtn = document.getElementById('save-profile');
             const notification = document.getElementById('notification');
 
-            // Load data from localStorage
-            const savedProfile = JSON.parse(localStorage.getItem('profileInfo'));
-            if (savedProfile) {
-                nameInput.value = savedProfile.name || '';
-                cardInput.value = savedProfile.card || '';
-                addressInput.value = savedProfile.address || '';
-            }
-
-            // Toggle profile-info visibility
-            function toggleProfileInfo(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                profileInfo.classList.toggle('active');
-            }
-
-            profileBtn.addEventListener('click', toggleProfileInfo);
-            profileBtn.addEventListener('touchstart', toggleProfileInfo, { passive: false });
-
-            // Close profile-info if clicked or touched outside
-            document.addEventListener('click', function (event) {
-                if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
-                    profileInfo.classList.remove('active');
+            if (profileBtn) {
+                const savedProfile = JSON.parse(localStorage.getItem('profileInfo'));
+                if (savedProfile) {
+                    nameInput.value = savedProfile.name || '';
+                    cardInput.value = savedProfile.card || '';
+                    addressInput.value = savedProfile.address || '';
                 }
-            });
 
-            document.addEventListener('touchstart', function (event) {
-                if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
-                    profileInfo.classList.remove('active');
+                function toggleProfileInfo(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    profileInfo.classList.toggle('active');
                 }
-            }, { passive: false });
 
-            // Save to localStorage and show notification
-            saveBtn.addEventListener('click', function () {
-                const profile = {
-                    name: nameInput.value,
-                    card: cardInput.value,
-                    address: addressInput.value
-                };
-                localStorage.setItem('profileInfo', JSON.stringify(profile));
-                profileInfo.classList.remove('active');
+                profileBtn.addEventListener('click', toggleProfileInfo);
+                profileBtn.addEventListener('touchstart', toggleProfileInfo, { passive: false });
 
-                // Show notification
-                notification.classList.add('active');
-                setTimeout(() => {
-                    notification.classList.remove('active');
-                }, 3000);
-            });
+                document.addEventListener('click', function (event) {
+                    if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
+                        profileInfo.classList.remove('active');
+                    }
+                });
+
+                document.addEventListener('touchstart', function (event) {
+                    if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
+                        profileInfo.classList.remove('active');
+                    }
+                }, { passive: false });
+
+                saveBtn.addEventListener('click', function () {
+                    const profile = {
+                        name: nameInput.value,
+                        card: cardInput.value,
+                        address: addressInput.value
+                    };
+                    localStorage.setItem('profileInfo', JSON.stringify(profile));
+                    profileInfo.classList.remove('active');
+
+                    notification.classList.add('active');
+                    setTimeout(() => {
+                        notification.classList.remove('active');
+                    }, 3000);
+                });
+            }
 
             // Menu Logic
             const menuBtn = document.querySelector('.menu');
@@ -420,55 +460,44 @@
                 menuDropdown.classList.toggle('show');
             });
 
-            // Handle clicks on menu items
             document.querySelectorAll('.menu-item').forEach(item => {
                 item.addEventListener('click', function () {
                     const link = this.dataset.link;
-                    // Perform navigation (optional)
-                    // window.location.href = link;
                     menuDropdown.classList.remove('show');
                 });
             });
 
-            // Close menu-dropdown if clicked outside
             document.addEventListener('click', function (event) {
                 if (!menuBtn.contains(event.target) && !menuDropdown.contains(event.target)) {
                     menuDropdown.classList.remove('show');
                 }
             });
 
-            // Slideshow Logic
+            // Slideshow Logic (chỉ hoạt động trên desktop)
             let slideIndex = 0;
             let autoSlideTimeout;
 
             function showSlides() {
                 let slides = document.getElementsByClassName("slide");
-                
-                // Remove 'active' class from all slides
                 for (let i = 0; i < slides.length; i++) {
                     slides[i].classList.remove("active");
                 }
-                
-                // Handle slide index bounds
                 if (slideIndex >= slides.length) { slideIndex = 0; }
                 if (slideIndex < 0) { slideIndex = slides.length - 1; }
-                
-                // Add 'active' class to the current slide
                 slides[slideIndex].classList.add("active");
-                
-                slideIndex++; // Move to the next slide
+                slideIndex++;
                 clearTimeout(autoSlideTimeout);
-                autoSlideTimeout = setTimeout(showSlides, 3000); // Auto-advance every 3 seconds
+                autoSlideTimeout = setTimeout(showSlides, 3000);
             }
 
-            // Manual navigation with arrow buttons
             window.changeSlide = function(n) {
                 slideIndex += n;
                 showSlides();
             };
 
-            // Start the slideshow
-            showSlides();
+            if (document.getElementsByClassName("slide").length > 0) {
+                showSlides();
+            }
 
             // Toggle Mode Logic
             let isMobile = true;
@@ -481,7 +510,7 @@
                 isMobile = !isMobile;
                 if (isMobile) {
                     toggleBtn.textContent = 'Switch to Desktop';
-                    document.body.style.width = '375px'; // Mô phỏng màn hình iPhone
+                    document.body.style.width = '375px';
                     document.body.style.margin = '0 auto';
                 } else {
                     toggleBtn.textContent = 'Switch to Mobile';
@@ -492,7 +521,22 @@
         });
     </script>
     <body>
-        <div class="header">
+        <!-- Giao diện Mobile -->
+        <div class="header mobile-only">
+            <h1 class="logo">Bia +</h1>
+            <button class="contact-btn">Contact Us</button>
+        </div>
+
+        <div class="content mobile-only">
+            <div class="seasonal-flavors">
+                <div class="icon-leaf">🍃</div>
+                <h2>Seasonal Flavors</h2>
+                <p>Daily fresh products combined with our professional yet convivial service to create a true gastronomic experience.</p>
+            </div>
+        </div>
+
+        <!-- Giao diện Desktop -->
+        <div class="header desktop-only">
             <div class="top-bar">
                 <div class="brand">
                     <h1>Bia +</h1>
@@ -518,7 +562,7 @@
             </div>
         </div>
 
-        <div class="slideshow-container">
+        <div class="slideshow-container desktop-only">
             <div class="slide">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Food 1">
             </div>
@@ -533,12 +577,11 @@
         </div>
 
         <div class="menu">▲ MENU</div>
-
         <div class="menu-dropdown" id="menu-dropdown">
             <button class="menu-item" data-link="#firefly1">Firefly 1</button>
             <button class="menu-item" data-link="#firefly2">Firefly 2</button>
         </div>
 
-        <div class="notification" id="notification">Thông tin của bạn đã được lưu</div>
+        <div class="notification desktop-only" id="notification">Thông tin của bạn đã được lưu</div>
     </body>
 </html>
