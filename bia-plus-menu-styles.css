@@ -129,7 +129,7 @@ body {
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     .grid-container {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Reduced from 200px to 100px */
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Reduced from 200px to 100px */
         gap: 10px; /* Reduced gap */
         padding: 55px; /* Reduced padding */
     }
