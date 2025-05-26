@@ -14,6 +14,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: all 0.3s ease; /* Thêm hiệu ứng chuyển đổi mượt */
         }
 
         .header {
@@ -272,6 +273,24 @@
             right: 10px;
         }
 
+        .toggle-mode {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #1f2937;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 14px;
+        }
+
+        .toggle-mode:hover {
+            background-color: #374151;
+        }
+
         @media (min-width: 600px) {
             .top-bar {
                 flex-direction: row;
@@ -450,6 +469,26 @@
 
             // Start the slideshow
             showSlides();
+
+            // Toggle Mode Logic
+            let isMobile = true;
+            const toggleBtn = document.createElement('button');
+            toggleBtn.textContent = 'Switch to Desktop';
+            toggleBtn.className = 'toggle-mode';
+            document.body.appendChild(toggleBtn);
+
+            toggleBtn.addEventListener('click', function () {
+                isMobile = !isMobile;
+                if (isMobile) {
+                    toggleBtn.textContent = 'Switch to Desktop';
+                    document.body.style.width = '375px'; // Mô phỏng màn hình iPhone
+                    document.body.style.margin = '0 auto';
+                } else {
+                    toggleBtn.textContent = 'Switch to Mobile';
+                    document.body.style.width = '100%';
+                    document.body.style.margin = '0';
+                }
+            });
         });
     </script>
     <body>
