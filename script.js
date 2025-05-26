@@ -1,5 +1,5 @@
-// Wait for the document to load
 document.addEventListener('DOMContentLoaded', function () {
+    // Profile Logic
     const profileBtn = document.querySelector('.profile-btn');
     const profileInfo = document.querySelector('.profile-info');
     const nameInput = document.getElementById('name');
@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
         notification.classList.add('active');
         setTimeout(() => {
             notification.classList.remove('active');
-        }, 3000); // Hide notification after 3 seconds
+        }, 3000);
     });
 
-    // Handle menu dropdown
+    // Menu Logic
     const menuBtn = document.querySelector('.menu');
     const menuDropdown = document.getElementById('menu-dropdown');
 
@@ -81,26 +81,36 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Slideshow logic
+    // Slideshow Logic
     let slideIndex = 0;
     let autoSlideTimeout;
-    showSlides();
+
+    function showSlides() {
+        let slides = document.getElementsByClassName("slide");
+        
+        // Remove 'active' class from all slides
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("active");
+        }
+        
+        // Handle slide index bounds
+        if (slideIndex >= slides.length) { slideIndex = 0; }
+        if (slideIndex < 0) { slideIndex = slides.length - 1; }
+        
+        // Add 'active' class to the current slide
+        slides[slideIndex].classList.add("active");
+        
+        slideIndex++; // Move to the next slide
+        clearTimeout(autoSlideTimeout);
+        autoSlideTimeout = setTimeout(showSlides, 3000); // Auto-advance every 3 seconds
+    }
+
     // Manual navigation with arrow buttons
     window.changeSlide = function(n) {
         slideIndex += n;
         showSlides(); // Show the new slide and restart auto slideshow
     };
-    function showSlides() {
-    let slides = document.getElementsByClassName("slide");
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    if (slideIndex >= slides.length) { slideIndex = 0; }
-    if (slideIndex < 0) { slideIndex = slides.length - 1; }
-    slides[slideIndex].style.display = "block";
-    slideIndex++; // next slide
-    clearTimeout(autoSlideTimeout);
-    autoSlideTimeout = setTimeout(showSlides, 3000);
-}
-    
+
+    // Start the slideshow
+    showSlides();
 });
