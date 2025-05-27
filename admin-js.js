@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const profileBody = document.getElementById('profile-body');
+    let profiles = []; // In-memory array to store profiles
+
+    // Initialize Broadcast Channel
+    const profileChannel = new BroadcastChannel('profile_channel');
 
     // Function to update the table with profiles
     function updateTable() {
         try {
-            const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
             profileBody.innerHTML = ''; // Clear existing table content
 
             if (profiles.length === 0) {
@@ -42,10 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to delete a profile by index
     function deleteProfile(index) {
         try {
-            let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
             if (index >= 0 && index < profiles.length) {
                 profiles.splice(index, 1); // Remove profile at index
-                localStorage.setItem('profiles', JSON.stringify(profiles));
                 updateTable(); // Refresh table
             }
         } catch (error) {
@@ -54,13 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initial table load
-    updateTable();
-
-    // Listen for storage events to update table in real-time
-    window.addEventListener('storage', (event) => {
-        if (event.key === 'profiles') {
-            updateTable();
+    // Receive profiles from Broadcast Channel
+    profileChannel.onmessage = (event) => {
+        const profile = event.data;
+        if (profile.name && profile.card && profile.address && profile.timestamp) {
+            profiles.push(profile); // Add profile to array
+            updateTable(); // Update table
         }
-    });
+    };
+
+    // Initial table load (empty)
+    updateTable();
 });
