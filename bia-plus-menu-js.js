@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             timeoutId = setTimeout(() => {
                 toggleItem(item, img, detailsInfo, overlay, true);
                 timeoutId = null;
-            }, 1000);
+            }, 1500);
         });
 
         img.addEventListener('touchstart', (e) => {
