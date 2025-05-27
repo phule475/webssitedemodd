@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const profileBody = document.getElementById('profile-body');
 
-    // Function to update the table with profiles
+    // Function to update the table with profiles from localStorage
     function updateTable() {
         try {
             const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('Adding profile to table:', profile);
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${profile.name || ''}</td>
-                        <td>${profile.card || ''}</td>
-                        <td>${profile.address || ''}</td>
-                        <td>${profile.timestamp || ''}</td>
+                        <td>${profile.name || 'N/A'}</td>
+                        <td>${profile.card || 'N/A'}</td>
+                        <td>${profile.address || 'N/A'}</td>
+                        <td>${profile.timestamp || 'N/A'}</td>
                         <td><button class="delete-btn" data-index="${index}">Delete</button></td>
                     `;
                     profileBody.appendChild(row);
