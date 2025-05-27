@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.grid-item').forEach(item => {
-        const img = item.querySelector('img');
+    document.querySelectorAll('.grid-item img').forEach(img => {
+        const item = img.closest('.grid-item');
         const detailsInfo = item.querySelector('.details-info');
 
         // Sự kiện click cho desktop
-        item.addEventListener('click', (e) => {
+        img.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleItem(item, img, detailsInfo);
         });
 
         // Sự kiện touchstart cho mobile
-        item.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Ngăn hành vi mặc định như giữ tay
+        img.addEventListener('touchstart', (e) => {
+            e.preventDefault();
             e.stopPropagation();
             toggleItem(item, img, detailsInfo);
         }, { passive: false });
