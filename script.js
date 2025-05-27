@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
     const profileBtn = document.querySelector('.profile-btn');
     const profileInfo = document.querySelector('.profile-info');
     const nameInput = document.getElementById('name');
@@ -7,30 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveBtn = document.getElementById('save-profile');
     const notification = document.getElementById('notification');
 
-    // Initialize Broadcast Channel
-    const profileChannel = new BroadcastChannel('profile_channel');
-    console.log('Broadcast Channel initialized in main page');
-
-    // Toggle profile info visibility
+    // Toggle profile-info visibility
     function toggleProfileInfo(event) {
         event.preventDefault();
         profileInfo.classList.toggle('active');
         console.log('Profile form toggled:', profileInfo.classList.contains('active') ? 'open' : 'closed');
     }
 
-    // Use only click event for toggling profile info
     profileBtn.addEventListener('click', toggleProfileInfo);
 
     // Close profile-info if clicked outside
-    document.addEventListener('click', (event) => {
+    document.addEventListener('click', function (event) {
         if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
             profileInfo.classList.remove('active');
             console.log('Profile form closed due to outside click');
         }
     });
 
-    // Send profile to admin page via Broadcast Channel
-    saveBtn.addEventListener('click', () => {
+    // Save to localStorage and show notification
+    saveBtn.addEventListener('click', function () {
         const profile = {
             name: nameInput.value.trim(),
             card: cardInput.value.trim(),
@@ -39,23 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         if (profile.name && profile.card && profile.address) {
-            // Log to confirm data is sent
-            console.log('Sending profile to admin:', profile);
-            try {
-                profileChannel.postMessage(profile);
-                console.log('Profile sent successfully');
-            } catch (error) {
-                console.error('Error sending profile:', error);
-            }
-
-            // Clear input fields
-            nameInput.value = '';
-            cardInput.value = '';
-            addressInput.value = '';
+            // Retrieve existing profiles or initialize empty array
+            let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            profiles.push(profile);
+            localStorage.setItem('profiles', JSON.stringify(profiles));
+            console.log('Profile saved to localStorage:', profile);
 
             // Show notification
             notification.classList.add('active');
-            notification.textContent = 'Your information has been sent!';
+            notification.textContent = 'Your information has been saved!';
             setTimeout(() => {
                 notification.classList.remove('active');
             }, 3000);
@@ -71,15 +58,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuBtn = document.querySelector('.menu');
     const menuDropdown = document.getElementById('menu-dropdown');
 
-    menuBtn.addEventListener('click', () => {
+    menuBtn.addEventListener('click', function () {
         menuDropdown.classList.toggle('show');
         console.log('Menu toggled:', menuDropdown.classList.contains('show') ? 'open' : 'closed');
     });
 
     // Handle clicks on menu items
     document.querySelectorAll('.menu-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const link = item.dataset.link;
+        item.addEventListener('click', function () {
+            const link = this.dataset.link;
             console.log('Menu item clicked:', link);
             // Perform navigation (optional)
             // window.location.href = link;
@@ -88,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Close menu-dropdown if clicked outside
-    document.addEventListener('click', (event) => {
+    document.addEventListener('click', function (event) {
         if (!menuBtn.contains(event.target) && !menuDropdown.contains(event.target)) {
             menuDropdown.classList.remove('show');
             console.log('Menu closed due to outside click');

@@ -1,14 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const profileBody = document.getElementById('profile-body');
-    let profiles = []; // In-memory array to store profiles
-
-    // Initialize Broadcast Channel
-    const profileChannel = new BroadcastChannel('profile_channel');
-    console.log('Broadcast Channel initialized in admin page');
 
     // Function to update the table with profiles
     function updateTable() {
         try {
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
             console.log('Updating table with profiles:', profiles);
             profileBody.innerHTML = ''; // Clear existing table content
 
@@ -46,8 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to delete a profile by index
     function deleteProfile(index) {
         try {
+            let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
             if (index >= 0 && index < profiles.length) {
                 profiles.splice(index, 1); // Remove profile at index
+                localStorage.setItem('profiles', JSON.stringify(profiles));
                 console.log('Profile deleted, new profiles array:', profiles);
                 updateTable(); // Refresh table
             }
@@ -57,14 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Receive profiles from Broadcast Channel
-    profileChannel.onmessage = (event) => {
-        const profile = event.data;
-        console.log('Received profile from main page:', profile);
-        profiles.push(profile); // Add profile to array
-        updateTable(); // Update table
-    };
-
-    // Initial table load (empty)
+    // Initial table load
     updateTable();
+
+    // Listen for storage events to update table in real-time
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'profiles') {
+            console.log('Storage event detected, updating table');
+            updateTable();
+        }
+    });
 });
