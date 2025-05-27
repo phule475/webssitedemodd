@@ -62,10 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 otherDetails.style.display = 'none';
             });
 
-            item.classList.add('active');
-            img.classList.add('enlarged');
-            detailsInfo.style.display = 'block';
-            overlay.style.display = 'block';
+            requestAnimationFrame(() => {
+                item.classList.add('active');
+                img.classList.add('enlarged');
+                detailsInfo.style.display = 'block';
+                overlay.style.display = 'block';
+            });
         }
     }
 

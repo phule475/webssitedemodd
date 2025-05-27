@@ -185,7 +185,9 @@ body {
         gap: 12px;
         padding: 12px;
     }
-
+    img{
+        border-radius: 10;
+    }
     .grid-item {
         padding: 12px;
         border-radius: 8px;
@@ -193,6 +195,7 @@ body {
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         position: relative;
         overflow: hidden;
+        transition: transform 0.3s ease;
     }
 
     .item-footer {
@@ -204,13 +207,14 @@ body {
         margin-bottom: 10px;
         object-fit: cover;
         border-radius: 4px;
-        transition: all 0.5s ease; /* Hiệu ứng mượt mà cho ảnh */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform;
     }
 
     .grid-item h3 {
         font-size: 16px;
         margin: 8px 0;
-        color: #34495e;
+        color: #24292e;
         font-weight: 500;
         line-height: 1.3;
         word-break: break-word;
@@ -219,94 +223,94 @@ body {
 
     .grid-item p.price {
         font-size: 16px;
-        color: #8DD8FF;
+        color: #28a745;
         font-weight: 600;
         margin: 6px 0;
     }
 
     .add-to-cart {
         padding: 8px;
-        background-color: #8DD8FF;
+        background-color: #28a745;
         color: white;
         border: none;
         border-radius: 6px;
         font-size: 14px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .add-to-cart:hover {
-        background-color: #16a085;
+        background-color: #218838;
+        transform: translateY(-2px);
     }
 
     .grid-item img.enlarged {
-        width: 90vw;
-        height: auto;
-        max-height: 75vh;
-        top: 10%;
-        left: 5%;
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+        width: 120px;
         z-index: 1000;
         border-radius: 10px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        pointer-events: auto;   
-        transition: all 0.3s ease; /* Hiệu ứng mượt mà khi phóng to */
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        pointer-events: auto;
+        border:3px solid #ccc;        
+        padding: 10px;
+        animation: githubZoomIn 0.8s ease-out forwards;
+        will-change: transform, opacity, filter;
+        object-fit: cover;
     }
 
-    .details-info {
-        font-size: 16px;
-        
-        padding: 12px 20px;
-        width: 90vw;
-        top: 42%;
+    .grid-item.active .details-info {
+        top: calc(10% + 40vh + 10px);
         left: 50%;
         transform: translateX(-50%);
+        font-size: 16px;
+        padding: 12px 20px;
+        width: 90vw;
+        min-height: 40px;
         text-align: center;
-        background-color: rgba(0, 0, 0, 0.9);
-        color: white;
-        border-radius: 8px;
+        background-color: rgba(27, 31, 35, 0.9);
+        color: #fff;
+        border-radius: 6px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         z-index: 1001;
-        pointer-events: auto;
-        transition: all 0.5s ease;
-    }
-@keyframes zoomIn {
-        from {
-            transform: scale(0.5);
-            opacity: 0;
-            top: 50%;
-            left: 50%;
-        }
-        to {
-            transform: scale(1);
-            opacity: 1;
-            top: 10%;
-            left: 5%;
-        }
+        display: block;
+        opacity: 0;
+        animation: githubFadeIn 0.8s ease-out 0.2s forwards;
+        will-change: opacity, transform;
     }
 
-    /* Animation zoom-out */
-    @keyframes zoomOut {
+    /* Animation phóng to từ giữa màn hình, loại bỏ height */
+    @keyframes githubZoomIn {
         from {
-            transform: scale(1);
-            opacity: 1;
-            top: 10%;
-            left: 5%;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 120px;
+            filter: blur(10px);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
         }
         to {
-            transform: scale(0.5);
-            opacity: 0;
-            top: 50%;
-            left: 50%;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(0.75);
+            width: 120vw;
+            max-height: 75vh;
+            filter: blur(0px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
     }
 
     /* Animation fade-in cho details-info */
-    @keyframes fadeIn {
+    @keyframes githubFadeIn {
         from {
             opacity: 0;
+            transform: translateX(-50%) scale(0.9);
+            filter: blur(5px);
         }
         to {
             opacity: 1;
+            transform: translateX(-50%) scale(1);
+            filter: blur(0px);
         }
     }
 }
