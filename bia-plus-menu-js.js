@@ -3,23 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const img = item.querySelector('img');
         const detailsInfo = item.querySelector('.details-info');
 
-        // Sự kiện click cho desktop và touch cho mobile
+        // Sự kiện click cho desktop
         item.addEventListener('click', (e) => {
-            e.stopPropagation(); // Ngăn chặn lan truyền sự kiện
+            e.stopPropagation();
             toggleItem(item, img, detailsInfo);
         });
 
-        // Sự kiện touchstart để hỗ trợ mobile
+        // Sự kiện touchstart cho mobile
         item.addEventListener('touchstart', (e) => {
-            e.stopPropagation(); // Ngăn chặn lan truyền sự kiện
+            e.preventDefault(); // Ngăn hành vi mặc định như giữ tay
+            e.stopPropagation();
             toggleItem(item, img, detailsInfo);
         }, { passive: false });
     });
 
     // Hàm toggle trạng thái grid-item
     function toggleItem(item, img, detailsInfo) {
-        // Nếu item đã active, đóng nó
         if (item.classList.contains('active')) {
+            // Đóng item nếu đang active
             item.classList.remove('active');
             img.classList.remove('enlarged');
             detailsInfo.style.display = 'none';
@@ -42,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sự kiện click/touch ra ngoài để đóng
     document.addEventListener('click', handleOutsideInteraction);
-    document.addEventListener('touchstart', handleOutsideInteraction, { passive: false });
+    document.addEventListener('touchend', handleOutsideInteraction, { passive: false });
 
     function handleOutsideInteraction(e) {
         const activeItem = document.querySelector('.grid-item.active');
