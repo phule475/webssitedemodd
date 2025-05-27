@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sự kiện click/touch ra ngoài để đóng
     document.addEventListener('click', handleOutsideInteraction);
-    document.addEventListener('touchend', handleOutsideInteraction, { passive: false });
+    document.addEventListener('touchstart', handleOutsideInteraction, { passive: false });
 
     function handleOutsideInteraction(e) {
         const activeItem = document.querySelector('.grid-item.active');
