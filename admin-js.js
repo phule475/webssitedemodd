@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
             profileBody.innerHTML = ''; // Clear existing table content
 
             if (profiles.length === 0) {
-                profileBody.innerHTML = '<tr><td colspan="4" class="no-data">No profiles available.</td></tr>';
+                profileBody.innerHTML = '<tr><td colspan="5" class="no-data">No profiles available.</td></tr>';
             } else {
-                profiles.forEach(profile => {
+                profiles.forEach((profile, index) => {
                     // Ensure profile has all required fields
                     if (profile.name && profile.card && profile.address && profile.timestamp) {
                         const row = document.createElement('tr');
@@ -19,14 +19,38 @@ document.addEventListener('DOMContentLoaded', () => {
                             <td>${profile.card}</td>
                             <td>${profile.address}</td>
                             <td>${profile.timestamp}</td>
+                            <td><button class="delete-btn" data-index="${index}">Delete</button></td>
                         `;
                         profileBody.appendChild(row);
                     }
                 });
+
+                // Attach delete event listeners to buttons
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const index = parseInt(button.dataset.index);
+                        deleteProfile(index);
+                    });
+                });
             }
         } catch (error) {
             console.error('Error updating table:', error);
-            profileBody.innerHTML = '<tr><td colspan="4" class="no-data">Error loading profiles.</td></tr>';
+            profileBody.innerHTML = '<tr><td colspan="5" class="no-data">Error loading profiles.</td></tr>';
+        }
+    }
+
+    // Function to delete a profile by index
+    function deleteProfile(index) {
+        try {
+            let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            if (index >= 0 && index < profiles.length) {
+                profiles.splice(index, 1); // Remove profile at index
+                localStorage.setItem('profiles', JSON.stringify(profiles));
+                updateTable(); // Refresh table
+            }
+        } catch (error) {
+            console.error('Error deleting profile:', error);
+            profileBody.innerHTML = '<tr><td colspan="5" class="no-data">Error deleting profile.</td></tr>';
         }
     }
 
