@@ -26,12 +26,14 @@ body {
     margin: 0;
     font-size: 28px;
     color: #8DD8FF;
+    float:left;
 }
 
 .brand p {
     margin: 5px 0 0;
     font-size: 14px;
     color: #bdc3c7;
+    float:left;
 }
 
 .back-btn {
@@ -223,7 +225,7 @@ body {
 
     .add-to-cart {
         padding: 8px;
-        background-color: #1abc9c;
+        background-color: #8DD8FF;
         color: white;
         border: none;
         border-radius: 6px;
