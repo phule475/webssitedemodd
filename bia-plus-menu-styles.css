@@ -262,7 +262,7 @@ body {
     }
 
     .grid-item.active .details-info {
-        top: calc(24% + 40vh + 10px);
+        top: calc(26% + 40vh + 10px);
         left: 50%;
         transform: translateX(-50%);
         font-size: 16px;
@@ -287,15 +287,15 @@ body {
             opacity: 0;
             transform: translate(-50%, -50%) scale(0.5);
             width: 10px;
-            filter: blur(10px);
+            filter: blur(50px);
             box-shadow: 0 0 0 rgba(0, 0, 0, 0);
         }
         to {
             opacity: 1;
             transform: translate(-50%, -50%) scale(0.75);
             width: 120%;
-            max-height: 75vh;
-            filter: blur(0px);
+            height: 50%;
+            filter: blur(00px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
     }
