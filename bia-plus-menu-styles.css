@@ -194,8 +194,8 @@ body {
 @media (max-width: 768px) {
     .grid-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 15px;
+        gap: 10px;
+        padding: 10px;
     }
 
     .grid-item {
@@ -251,5 +251,4 @@ body {
         background-color: rgba(0, 0, 0, 0.85); /* Tăng độ mờ nền */
         border-radius: 6px;
     }
-
 }
