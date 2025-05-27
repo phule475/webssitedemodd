@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Profile Logic
     const profileBtn = document.querySelector('.profile-btn');
     const profileInfo = document.querySelector('.profile-info');
     const nameInput = document.getElementById('name');
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const saveBtn = document.getElementById('save-profile');
     const notification = document.getElementById('notification');
 
-    // Load data from localStorage
     const savedProfile = JSON.parse(localStorage.getItem('profileInfo'));
     if (savedProfile) {
         nameInput.value = savedProfile.name || '';
