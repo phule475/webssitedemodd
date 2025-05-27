@@ -9,11 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Broadcast Channel
     const profileChannel = new BroadcastChannel('profile_channel');
+    console.log('Broadcast Channel initialized in main page');
 
     // Toggle profile info visibility
     function toggleProfileInfo(event) {
         event.preventDefault();
         profileInfo.classList.toggle('active');
+        console.log('Profile form toggled:', profileInfo.classList.contains('active') ? 'open' : 'closed');
     }
 
     // Use only click event for toggling profile info
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (event) => {
         if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
             profileInfo.classList.remove('active');
+            console.log('Profile form closed due to outside click');
         }
     });
 
@@ -37,9 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (profile.name && profile.card && profile.address) {
             // Log to confirm data is sent
-            console.log('Sending profile:', profile);
-            // Send profile data via Broadcast Channel
-            profileChannel.postMessage(profile);
+            console.log('Sending profile to admin:', profile);
+            try {
+                profileChannel.postMessage(profile);
+                console.log('Profile sent successfully');
+            } catch (error) {
+                console.error('Error sending profile:', error);
+            }
 
             // Clear input fields
             nameInput.value = '';
@@ -55,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             profileInfo.classList.remove('active');
         } else {
+            console.error('Validation failed: please fill all fields');
             alert('Please fill in all fields!');
         }
     });
@@ -65,12 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuBtn.addEventListener('click', () => {
         menuDropdown.classList.toggle('show');
+        console.log('Menu toggled:', menuDropdown.classList.contains('show') ? 'open' : 'closed');
     });
 
     // Handle clicks on menu items
     document.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', () => {
             const link = item.dataset.link;
+            console.log('Menu item clicked:', link);
             // Perform navigation (optional)
             // window.location.href = link;
             menuDropdown.classList.remove('show');
@@ -81,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (event) => {
         if (!menuBtn.contains(event.target) && !menuDropdown.contains(event.target)) {
             menuDropdown.classList.remove('show');
+            console.log('Menu closed due to outside click');
         }
     });
 

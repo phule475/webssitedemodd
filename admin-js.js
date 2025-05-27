@@ -4,17 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Broadcast Channel
     const profileChannel = new BroadcastChannel('profile_channel');
+    console.log('Broadcast Channel initialized in admin page');
 
     // Function to update the table with profiles
     function updateTable() {
         try {
+            console.log('Updating table with profiles:', profiles);
             profileBody.innerHTML = ''; // Clear existing table content
 
             if (profiles.length === 0) {
                 profileBody.innerHTML = '<tr><td colspan="5" class="no-data">No profiles available.</td></tr>';
             } else {
                 profiles.forEach((profile, index) => {
-                    // Relaxed condition to debug
+                    console.log('Adding profile to table:', profile);
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${profile.name || ''}</td>
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll('.delete-btn').forEach(button => {
                     button.addEventListener('click', () => {
                         const index = parseInt(button.dataset.index);
+                        console.log('Deleting profile at index:', index);
                         deleteProfile(index);
                     });
                 });
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (index >= 0 && index < profiles.length) {
                 profiles.splice(index, 1); // Remove profile at index
+                console.log('Profile deleted, new profiles array:', profiles);
                 updateTable(); // Refresh table
             }
         } catch (error) {
@@ -56,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Receive profiles from Broadcast Channel
     profileChannel.onmessage = (event) => {
         const profile = event.data;
-        console.log('Received profile:', profile); // Log to confirm receipt
+        console.log('Received profile from main page:', profile);
         profiles.push(profile); // Add profile to array
         updateTable(); // Update table
     };
