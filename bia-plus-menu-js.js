@@ -49,19 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleItem(item, img, detailsInfo, overlay, isEnlarging) {
         if (item.classList.contains('active')) {
-            img.classList.add('zoom-out'); // Bắt đầu animation thu nhỏ
-            setTimeout(() => {
-                item.classList.remove('active');
-                img.classList.remove('enlarged', 'zoom-out');
-                detailsInfo.style.display = 'none';
-                overlay.style.display = 'none';
-            }, 500); // Độ dài animation (0.5s)
+            item.classList.remove('active');
+            img.classList.remove('enlarged');
+            detailsInfo.style.display = 'none';
+            overlay.style.display = 'none';
         } else if (isEnlarging) {
             document.querySelectorAll('.grid-item').forEach(otherItem => {
                 otherItem.classList.remove('active');
                 const otherImg = otherItem.querySelector('img');
                 const otherDetails = otherItem.querySelector('.details-info');
-                otherImg.classList.remove('enlarged', 'zoom-out');
+                otherImg.classList.remove('enlarged');
                 otherDetails.style.display = 'none';
             });
 
@@ -79,13 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         document.querySelectorAll('.grid-item').forEach(item => {
+            item.classList.remove('active');
             const img = item.querySelector('img');
-            img.classList.add('zoom-out');
-            setTimeout(() => {
-                item.classList.remove('active');
-                img.classList.remove('enlarged', 'zoom-out');
-                item.querySelector('.details-info').style.display = 'none';
-            }, 500);
+            img.classList.remove('enlarged');
+            item.querySelector('.details-info').style.display = 'none';
         });
         overlay.style.display = 'none';
     });
@@ -98,13 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         document.querySelectorAll('.grid-item').forEach(item => {
+            item.classList.remove('active');
             const img = item.querySelector('img');
-            img.classList.add('zoom-out');
-            setTimeout(() => {
-                item.classList.remove('active');
-                img.classList.remove('enlarged', 'zoom-out');
-                item.querySelector('.details-info').style.display = 'none';
-            }, 500);
+            img.classList.remove('enlarged');
+            item.querySelector('.details-info').style.display = 'none';
         });
         overlay.style.display = 'none';
     }, { passive: false });
@@ -122,4 +113,4 @@ document.addEventListener('DOMContentLoaded', () => {
             timeoutId = null;
         }
     }, { passive: false });
-}); 
+});

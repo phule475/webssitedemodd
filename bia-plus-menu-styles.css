@@ -26,14 +26,12 @@ body {
     margin: 0;
     font-size: 28px;
     color: #8DD8FF;
-    float:left;
 }
 
 .brand p {
     margin: 5px 0 0;
     font-size: 14px;
     color: #bdc3c7;
-    float:left;
 }
 
 .back-btn {
@@ -104,7 +102,7 @@ body {
     object-fit: contain;
     margin-bottom: 10px;
     border-radius: 4px;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
     position: relative;
     z-index: 2;
 }
@@ -127,21 +125,8 @@ body {
     object-fit: contain;
     z-index: 1000;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.details-info {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 18px;
-    z-index: 1001;
-    display: none;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
 }
 
 .grid-item h3 {
@@ -204,7 +189,7 @@ body {
         margin-bottom: 10px;
         object-fit: cover;
         border-radius: 4px;
-        transition: all 0.5s ease; /* Hiệu ứng mượt mà cho ảnh */
+        transition: all 0.3s ease;
     }
 
     .grid-item h3 {
@@ -219,14 +204,14 @@ body {
 
     .grid-item p.price {
         font-size: 16px;
-        color: #1abc9c;
+        color: #8DD8FF;
         font-weight: 600;
         margin: 6px 0;
     }
 
     .add-to-cart {
         padding: 8px;
-        background-color: #1abc9c;
+        background-color: #8DD8FF;
         color: white;
         border: none;
         border-radius: 6px;
@@ -247,61 +232,51 @@ body {
         left: 5%;
         z-index: 1000;
         border-radius: 10px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
         pointer-events: auto;
-        transition: all 0.5s ease; /* Hiệu ứng mượt mà khi phóng to */
+        transform: perspective(1000px) rotateY(0deg) scale(1);
+        opacity: 1;
+        background: linear-gradient(45deg, #1abc9c, #3498db);
+        padding: 5px;
+        animation: proZoomIn 0.6s ease-out forwards;
     }
 
-    .details-info {
-        font-size: 16px;
-        
-        padding: 12px 20px;
-        width: 90vw;
+    .grid-item.active .details-info {
         top: 42%;
         left: 50%;
         transform: translateX(-50%);
+        font-size: 16px;
+        padding: 12px 20px;
+        width: 90vw;
         text-align: center;
         background-color: rgba(0, 0, 0, 0.9);
         color: white;
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         z-index: 1001;
-        pointer-events: auto;
-        transition: all 0.5s ease;
+        display: block;
+        opacity: 0;
+        animation: proFadeIn 0.6s ease-out 0.2s forwards;
     }
-@keyframes zoomIn {
+
+    @keyframes proZoomIn {
         from {
-            transform: scale(0.5);
+            transform: perspective(1000px) rotateY(-30deg) scale(0.5);
             opacity: 0;
             top: 50%;
             left: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         to {
-            transform: scale(1);
+            transform: perspective(1000px) rotateY(0deg) scale(1);
             opacity: 1;
             top: 10%;
             left: 5%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
         }
     }
 
-    /* Animation zoom-out */
-    @keyframes zoomOut {
-        from {
-            transform: scale(1);
-            opacity: 1;
-            top: 10%;
-            left: 5%;
-        }
-        to {
-            transform: scale(0.5);
-            opacity: 0;
-            top: 50%;
-            left: 50%;
-        }
-    }
-
-    /* Animation fade-in cho details-info */
-    @keyframes fadeIn {
+    @keyframes proFadeIn {
         from {
             opacity: 0;
         }
