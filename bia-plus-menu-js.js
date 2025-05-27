@@ -3,59 +3,63 @@ document.addEventListener('DOMContentLoaded', () => {
         const img = item.querySelector('img');
         const detailsInfo = item.querySelector('.details-info');
 
+        // Sự kiện click cho desktop và touch cho mobile
         item.addEventListener('click', (e) => {
-            e.stopPropagation(); // Ngăn chặn sự kiện lan ra document
-            if (!item.classList.contains('active')) {
-                // Đóng tất cả các item khác trước khi mở item mới
-                document.querySelectorAll('.grid-item').forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                    const otherImg = otherItem.querySelector('img');
-                    const otherDetails = otherItem.querySelector('.details-info');
-                    otherImg.classList.remove('enlarged');
-                    otherDetails.style.display = 'none';
-                });
-
-                // Kích hoạt item hiện tại
-                item.classList.add('active');
-                img.classList.add('enlarged');
-                detailsInfo.style.display = 'block';
-            }
+            e.stopPropagation(); // Ngăn chặn lan truyền sự kiện
+            toggleItem(item, img, detailsInfo);
         });
 
-        // Thoát chế độ phóng to khi nhấp ra ngoài
-        document.addEventListener('click', (e) => {
-            const activeItem = document.querySelector('.grid-item.active');
-            const enlargedImg = document.querySelector('img.enlarged');
-
-            if (activeItem) {
-                const isClickOutside = !activeItem.contains(e.target) && (!enlargedImg || !enlargedImg.contains(e.target));
-                if (isClickOutside) {
-                    document.querySelectorAll('.grid-item').forEach(item => {
-                        item.classList.remove('active');
-                        const img = item.querySelector('img');
-                        img.classList.remove('enlarged');
-                        item.querySelector('.details-info').style.display = 'none';
-                    });
-                }
-            }
-        });
-
-        // Thoát chế độ phóng to trên mobile khi nhấp ra ngoài
-        document.addEventListener('touchstart', (e) => {
-            const activeItem = document.querySelector('.grid-item.active');
-            const enlargedImg = document.querySelector('img.enlarged');
-
-            if (activeItem) {
-                const isClickOutside = !activeItem.contains(e.target) && (!enlargedImg || !enlargedImg.contains(e.target));
-                if (isClickOutside) {
-                    document.querySelectorAll('.grid-item').forEach(item => {
-                        item.classList.remove('active');
-                        const img = item.querySelector('img');
-                        img.classList.remove('enlarged');
-                        item.querySelector('.details-info').style.display = 'none';
-                    });
-                }
-            }
-        });
+        // Sự kiện touchstart để hỗ trợ mobile
+        item.addEventListener('touchstart', (e) => {
+            e.stopPropagation(); // Ngăn chặn lan truyền sự kiện
+            toggleItem(item, img, detailsInfo);
+        }, { passive: false });
     });
+
+    // Hàm toggle trạng thái grid-item
+    function toggleItem(item, img, detailsInfo) {
+        // Nếu item đã active, đóng nó
+        if (item.classList.contains('active')) {
+            item.classList.remove('active');
+            img.classList.remove('enlarged');
+            detailsInfo.style.display = 'none';
+        } else {
+            // Đóng tất cả các item khác
+            document.querySelectorAll('.grid-item').forEach(otherItem => {
+                otherItem.classList.remove('active');
+                const otherImg = otherItem.querySelector('img');
+                const otherDetails = otherItem.querySelector('.details-info');
+                otherImg.classList.remove('enlarged');
+                otherDetails.style.display = 'none';
+            });
+
+            // Kích hoạt item hiện tại
+            item.classList.add('active');
+            img.classList.add('enlarged');
+            detailsInfo.style.display = 'block';
+        }
+    }
+
+    // Sự kiện click/touch ra ngoài để đóng
+    document.addEventListener('click', handleOutsideInteraction);
+    document.addEventListener('touchstart', handleOutsideInteraction, { passive: false });
+
+    function handleOutsideInteraction(e) {
+        const activeItem = document.querySelector('.grid-item.active');
+        if (!activeItem) return;
+
+        const isClickInside = activeItem.contains(e.target);
+        const isClickOnEnlargedImg = e.target.classList.contains('enlarged');
+        const isClickOnDetails = e.target.closest('.details-info');
+
+        // Đóng nếu nhấp ra ngoài
+        if (!isClickInside && !isClickOnEnlargedImg && !isClickOnDetails) {
+            document.querySelectorAll('.grid-item').forEach(item => {
+                item.classList.remove('active');
+                const img = item.querySelector('img');
+                img.classList.remove('enlarged');
+                item.querySelector('.details-info').style.display = 'none';
+            });
+        }
+    }
 });

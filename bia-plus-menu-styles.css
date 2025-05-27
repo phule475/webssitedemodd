@@ -193,48 +193,63 @@ body {
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 10px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Giảm kích thước tối thiểu để phù hợp màn hình nhỏ */
+        gap: 15px;
+        padding: 15px;
     }
 
     .grid-item {
-        padding: 8px;
+        padding: 10px;
+        border-radius: 6px;
     }
 
     .item-footer {
-        padding: 5px 0;
+        padding: 8px 0;
     }
 
     .grid-item img {
-        height: 75px;
-        margin-bottom: 5px;
+        height: 100px; /* Tăng kích thước ảnh để dễ nhìn hơn */
+        margin-bottom: 8px;
+        object-fit: cover; /* Đảm bảo ảnh không bị méo */
     }
 
     .grid-item h3 {
-        font-size: 14px;
-        margin: 5px 0 3px;
+        font-size: 16px; /* Tăng kích thước chữ */
+        margin: 8px 0 5px;
+        line-height: 1.2; /* Cải thiện khoảng cách dòng */
     }
 
     .grid-item p.price {
-        font-size: 14px;
-        margin-bottom: 5px;
+        font-size: 16px;
+        margin-bottom: 8px;
     }
 
     .add-to-cart {
-        padding: 5px 10px;
-        font-size: 12px;
+        padding: 8px 12px;
+        font-size: 14px; /* Tăng kích thước chữ nút */
+        border-radius: 4px;
     }
 
     .grid-item img.enlarged {
-        width: 70vw;
-        height: 70vh;
-        top: 20%;
-        left: 15%;
+        width: 90vw; /* Tăng chiều rộng để tận dụng không gian */
+        height: auto; /* Giữ tỷ lệ ảnh */
+        max-height: 80vh; /* Giới hạn chiều cao */
+        top: 10%; /* Căn giữa dọc tốt hơn */
+        left: 5%; /* Căn giữa ngang */
+        transform: translateX(0); /* Bỏ transform để căn chỉnh chính xác */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
 
     .details-info {
-        font-size: 14px;
-        padding: 8px 15px;
+        font-size: 16px; /* Tăng kích thước chữ */
+        padding: 10px 20px;
+        width: 90vw; /* Đảm bảo thông tin chi tiết không bị cắt */
+        top: 5%; /* Đẩy lên trên để dễ đọc */
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.85); /* Tăng độ mờ nền */
+        border-radius: 6px;
     }
+
 }
