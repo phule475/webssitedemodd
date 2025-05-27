@@ -7,11 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const saveBtn = document.getElementById('save-profile');
     const notification = document.getElementById('notification');
 
-    const savedProfile = JSON.parse(localStorage.getItem('profileInfo'));
-    if (savedProfile) {
-        nameInput.value = savedProfile.name || '';
-        cardInput.value = savedProfile.card || '';
-        addressInput.value = savedProfile.address || '';
+    // Load the latest profile (optional, for form pre-filling)
+    const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+    if (profiles.length > 0) {
+        const latestProfile = profiles[profiles.length - 1]; // Load the most recent profile
+        nameInput.value = latestProfile.name || '';
+        cardInput.value = latestProfile.card || '';
+        addressInput.value = latestProfile.address || '';
     }
 
     // Toggle profile-info visibility
@@ -42,16 +44,31 @@ document.addEventListener('DOMContentLoaded', function () {
         const profile = {
             name: nameInput.value,
             card: cardInput.value,
-            address: addressInput.value
+            address: addressInput.value,
+            timestamp: new Date().toLocaleString()
         };
-        localStorage.setItem('profileInfo', JSON.stringify(profile));
-        profileInfo.classList.remove('active');
 
-        // Show notification
-        notification.classList.add('active');
-        setTimeout(() => {
-            notification.classList.remove('active');
-        }, 3000);
+        if (profile.name && profile.card && profile.address) {
+            // Retrieve existing profiles or initialize empty array
+            let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            profiles.push(profile);
+            localStorage.setItem('profiles', JSON.stringify(profiles));
+
+            // Clear input fields
+            nameInput.value = '';
+            cardInput.value = '';
+            addressInput.value = '';
+
+            // Show notification
+            notification.classList.add('active');
+            setTimeout(() => {
+                notification.classList.remove('active');
+            }, 3000);
+
+            profileInfo.classList.remove('active');
+        } else {
+            alert('Please fill in all fields.');
+        }
     });
 
     // Menu Logic
