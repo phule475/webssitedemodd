@@ -204,6 +204,7 @@ body {
         margin-bottom: 10px;
         object-fit: cover;
         border-radius: 4px;
+        transition: all 0.5s ease; /* Hiệu ứng mượt mà cho ảnh */
     }
 
     .grid-item h3 {
@@ -218,14 +219,14 @@ body {
 
     .grid-item p.price {
         font-size: 16px;
-        color: #8DD8FF;
+        color: #1abc9c;
         font-weight: 600;
         margin: 6px 0;
     }
 
     .add-to-cart {
         padding: 8px;
-        background-color: #8DD8FF;
+        background-color: #1abc9c;
         color: white;
         border: none;
         border-radius: 6px;
@@ -248,10 +249,12 @@ body {
         border-radius: 10px;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         pointer-events: auto;
+        transition: all 0.5s ease; /* Hiệu ứng mượt mà khi phóng to */
     }
 
     .details-info {
         font-size: 16px;
+        
         padding: 12px 20px;
         width: 90vw;
         top: 42%;
@@ -264,5 +267,46 @@ body {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         z-index: 1001;
         pointer-events: auto;
+        transition: all 0.5s ease;
+    }
+@keyframes zoomIn {
+        from {
+            transform: scale(0.5);
+            opacity: 0;
+            top: 50%;
+            left: 50%;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+            top: 10%;
+            left: 5%;
+        }
+    }
+
+    /* Animation zoom-out */
+    @keyframes zoomOut {
+        from {
+            transform: scale(1);
+            opacity: 1;
+            top: 10%;
+            left: 5%;
+        }
+        to {
+            transform: scale(0.5);
+            opacity: 0;
+            top: 50%;
+            left: 50%;
+        }
+    }
+
+    /* Animation fade-in cho details-info */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 }
