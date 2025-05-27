@@ -14,18 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 profileBody.innerHTML = '<tr><td colspan="5" class="no-data">No profiles available.</td></tr>';
             } else {
                 profiles.forEach((profile, index) => {
-                    // Ensure profile has all required fields
-                    if (profile.name && profile.card && profile.address && profile.timestamp) {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${profile.name}</td>
-                            <td>${profile.card}</td>
-                            <td>${profile.address}</td>
-                            <td>${profile.timestamp}</td>
-                            <td><button class="delete-btn" data-index="${index}">Delete</button></td>
-                        `;
-                        profileBody.appendChild(row);
-                    }
+                    // Relaxed condition to debug
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${profile.name || ''}</td>
+                        <td>${profile.card || ''}</td>
+                        <td>${profile.address || ''}</td>
+                        <td>${profile.timestamp || ''}</td>
+                        <td><button class="delete-btn" data-index="${index}">Delete</button></td>
+                    `;
+                    profileBody.appendChild(row);
                 });
 
                 // Attach delete event listeners to buttons
@@ -58,10 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Receive profiles from Broadcast Channel
     profileChannel.onmessage = (event) => {
         const profile = event.data;
-        if (profile.name && profile.card && profile.address && profile.timestamp) {
-            profiles.push(profile); // Add profile to array
-            updateTable(); // Update table
-        }
+        console.log('Received profile:', profile); // Log to confirm receipt
+        profiles.push(profile); // Add profile to array
+        updateTable(); // Update table
     };
 
     // Initial table load (empty)

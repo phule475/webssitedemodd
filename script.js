@@ -13,25 +13,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toggle profile info visibility
     function toggleProfileInfo(event) {
         event.preventDefault();
-        event.stopPropagation();
         profileInfo.classList.toggle('active');
     }
 
+    // Use only click event for toggling profile info
     profileBtn.addEventListener('click', toggleProfileInfo);
-    profileBtn.addEventListener('touchstart', toggleProfileInfo, { passive: true });
 
-    // Close profile-info if clicked or touched outside
+    // Close profile-info if clicked outside
     document.addEventListener('click', (event) => {
         if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
             profileInfo.classList.remove('active');
         }
     });
-
-    document.addEventListener('touchstart', (event) => {
-        if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
-            profileInfo.classList.remove('active');
-        }
-    }, { passive: true });
 
     // Send profile to admin page via Broadcast Channel
     saveBtn.addEventListener('click', () => {
@@ -39,10 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
             name: nameInput.value.trim(),
             card: cardInput.value.trim(),
             address: addressInput.value.trim(),
-            timestamp: new Date().toLocaleString('vi-VN')
+            timestamp: new Date().toLocaleString('en-US')
         };
 
         if (profile.name && profile.card && profile.address) {
+            // Log to confirm data is sent
+            console.log('Sending profile:', profile);
             // Send profile data via Broadcast Channel
             profileChannel.postMessage(profile);
 
@@ -53,14 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Show notification
             notification.classList.add('active');
-            notification.textContent = 'Thông tin của bạn đã được gửi!';
+            notification.textContent = 'Your information has been sent!';
             setTimeout(() => {
                 notification.classList.remove('active');
             }, 3000);
 
             profileInfo.classList.remove('active');
         } else {
-            alert('Vui lòng điền đầy đủ các trường!');
+            alert('Please fill in all fields!');
         }
     });
 
