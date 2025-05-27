@@ -145,7 +145,7 @@ body {
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     .grid-container {
-        grid-template-columns: repeat(33, 1fr); /* Định nghĩa 2 cột cố định */
+        grid-template-columns: repeat(3, 1fr); /* Định nghĩa 2 cột cố định */
         gap: 10px; /* Khoảng cách giữa các cột */
         padding: 10px; /* Giảm padding */
     }
