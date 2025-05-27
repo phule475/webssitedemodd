@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Tạo overlay động
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    overlay.style.display = 'none';
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.zIndex = '999';
+    document.body.appendChild(overlay);
+
     document.querySelectorAll('.grid-item img').forEach(img => {
         const item = img.closest('.grid-item');
         const detailsInfo = item.querySelector('.details-info');
@@ -6,26 +19,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Sự kiện click cho desktop
         img.addEventListener('click', (e) => {
             e.stopPropagation();
-            toggleItem(item, img, detailsInfo);
+            toggleItem(item, img, detailsInfo, overlay);
         });
 
         // Sự kiện touchstart cho mobile
         img.addEventListener('touchstart', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            toggleItem(item, img, detailsInfo);
+            toggleItem(item, img, detailsInfo, overlay);
         }, { passive: false });
     });
 
     // Hàm toggle trạng thái grid-item
-    function toggleItem(item, img, detailsInfo) {
+    function toggleItem(item, img, detailsInfo, overlay) {
         if (item.classList.contains('active')) {
-            // Đóng item nếu đang active
             item.classList.remove('active');
             img.classList.remove('enlarged');
             detailsInfo.style.display = 'none';
+            overlay.style.display = 'none';
         } else {
-            // Đóng tất cả các item khác
             document.querySelectorAll('.grid-item').forEach(otherItem => {
                 otherItem.classList.remove('active');
                 const otherImg = otherItem.querySelector('img');
@@ -34,33 +46,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 otherDetails.style.display = 'none';
             });
 
-            // Kích hoạt item hiện tại
             item.classList.add('active');
             img.classList.add('enlarged');
             detailsInfo.style.display = 'block';
+            overlay.style.display = 'block';
         }
     }
 
-    // Sự kiện click/touch ra ngoài để đóng
-    document.addEventListener('click', handleOutsideInteraction);
-    document.addEventListener('touchstart', handleOutsideInteraction, { passive: false });
+    // Sự kiện nhấp vào overlay để đóng
+    overlay.addEventListener('click', () => {
+        document.querySelectorAll('.grid-item').forEach(item => {
+            item.classList.remove('active');
+            const img = item.querySelector('img');
+            img.classList.remove('enlarged');
+            item.querySelector('.details-info').style.display = 'none';
+        });
+        overlay.style.display = 'none';
+    });
 
-    function handleOutsideInteraction(e) {
-        const activeItem = document.querySelector('.grid-item.active');
-        if (!activeItem) return;
-
-        const isClickInside = activeItem.contains(e.target);
-        const isClickOnEnlargedImg = e.target.classList.contains('enlarged');
-        const isClickOnDetails = e.target.closest('.details-info');
-
-        // Đóng nếu nhấp ra ngoài
-        if (!isClickInside && !isClickOnEnlargedImg && !isClickOnDetails) {
-            document.querySelectorAll('.grid-item').forEach(item => {
-                item.classList.remove('active');
-                const img = item.querySelector('img');
-                img.classList.remove('enlarged');
-                item.querySelector('.details-info').style.display = 'none';
-            });
-        }
-    }
+    overlay.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.grid-item').forEach(item => {
+            item.classList.remove('active');
+            const img = item.querySelector('img');
+            img.classList.remove('enlarged');
+            item.querySelector('.details-info').style.display = 'none';
+        });
+        overlay.style.display = 'none';
+    }, { passive: false });
 });
