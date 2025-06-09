@@ -24,12 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             if (response.ok && data.success) {
                 token = data.token;
-                authForm.style.display = 'none';
-                profileTable.style.display = 'table';
-                loginLogTable.style.display = 'table';
-                authError.style.display = 'none';
-                updateProfileTable();
-                updateLoginLogTable();
+                if (data.isAdmin) {
+                    authForm.style.display = 'none';
+                    profileTable.style.display = 'table';
+                    loginLogTable.style.display = 'table';
+                    authError.style.display = 'none';
+                    updateProfileTable();
+                    updateLoginLogTable();
+                } else {
+                    authError.style.display = 'block';
+                    authError.textContent = 'Admin access required!';
+                }
             } else {
                 authError.style.display = 'block';
                 authError.textContent = data.message || 'Invalid credentials!';
