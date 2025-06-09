@@ -1,0 +1,314 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+.header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #8DD8FF;
+    float: left;
+}
+
+.brand p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #bdc3c7;
+    float: left;
+}
+
+.back-btn {
+    padding: 10px 20px;
+    background-color: #8DD8FF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: #6dc0f6;
+    transform: translateY(-2px);
+}
+
+.menu-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.grid-menu {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.grid-item {
+    text-align: center;
+    padding: 15px;
+    background-color: #f9fbfd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.grid-content {
+    flex-grow: 1;
+}
+
+.item-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px 0;
+    margin-top: auto;
+}
+
+.grid-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.grid-item:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.grid-item:hover img {
+    transform: none;
+}
+
+.grid-item img.enlarged {
+    position: fixed;
+    top: 20%;
+    left: 15%;
+    width: 70vw;
+    height: 70vh;
+    object-fit: contain;
+    z-index: 1000;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.details-info {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    z-index: 1001;
+    display: none;
+}
+
+.grid-item h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+    color: #34495e;
+    position: relative;
+    z-index: 2;
+}
+
+.grid-item p.price {
+    color: #8DD8FF;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 0 5px;
+    position: relative;
+    z-index: 2;
+}
+
+.add-to-cart {
+    padding: 8px 15px;
+    background-color: #8DD8FF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.add-to-cart:hover {
+    background-color: #6dc0f6;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 12px;
+    }
+    img {
+        border-radius: 10px;
+    }
+    .grid-item {
+        padding: 12px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .item-footer {
+        padding: 8px 0;
+    }
+
+    .grid-item img {
+        height: 120px;
+        margin-bottom: 10px;
+        object-fit: cover;
+        border-radius: 4px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform;
+    }
+
+    .grid-item h3 {
+        font-size: 16px;
+        margin: 8px 0;
+        color: #24292e;
+        font-weight: 500;
+        line-height: 1.3;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .grid-item p.price {
+        font-size: 16px;
+        color: #8DD8FF;
+        font-weight: 600;
+        margin: 6px 0;
+    }
+
+    .add-to-cart {
+        padding: 8px;
+        background-color: #bd1f1f;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .add-to-cart:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+    }
+
+    .grid-item img.enlarged {
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+        width: 100vw;
+        z-index: 1000;
+        border-radius: 10px;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        pointer-events: auto;
+        border: 3px solid #ccc;
+        padding: 10px;
+        animation: githubZoomIn 0.8s ease-out forwards;
+        will-change: transform, opacity, filter;
+        object-fit: cover;
+    }
+
+    .grid-item.active .details-info {
+        top: calc(26% + 40vh + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+        padding: 12px 20px;
+        width: 90vw;
+        min-height: 40px;
+        text-align: center;
+        background-color: rgba(27, 31, 35, 0.9);
+        color: #fff;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        display: block;
+        opacity: 0;
+        animation: githubFadeIn 0.8s ease-out 0.2s forwards;
+        will-change: opacity, transform;
+    }
+
+    @keyframes githubZoomIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 10px;
+            filter: blur(50px);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(0.75);
+            width: 120%;
+            height: 50%;
+            filter: blur(0px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    @keyframes githubFadeIn {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.9);
+            filter: blur(5px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+            filter: blur(0px);
+        }
+    }
+}

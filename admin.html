@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Bia +</title>
+    <title>Bia + Admin</title>
     <link rel="stylesheet" href="admin-styles.css">
 </head>
 <body>
-    <div class="header">
-        <div class="brand">
-            <h1>Bia + Admin</h1>
-            <p>99 Thanh Tinh, TTDT Chi Linh, Vung Tau, BR-VT</p>
-            <a href="index.html" class="back-link">Back to Main Page</a>
-        </div>
-    </div>
+    <header class="header">
+        <h1>Bia + Admin</h1>
+        <p>99 Thanh Tinh, TTDT Chi Linh, Vung Tau, BR-VT</p>
+        <a href="index.html" class="back-link">Quay lại Trang chính</a>
+    </header>
 
     <div class="container">
-        <h2>Customer Profiles</h2>
-        <table id="profile-table">
+        <div id="auth-form">
+            <h2>Customer Profiles</h2>
+            <p>Nhập thông tin để truy cập</p>
+            <input type="text" id="admin-username" placeholder="Tên đăng nhập">
+            <input type="password" id="admin-password" placeholder="Mật khẩu">
+            <button id="auth-btn">Xác thực</button>
+            <div id="auth-error" style="color: red; display: none;">Thông tin không đúng!</div>
+        </div>
+
+        <table id="profile-table" style="display: none;">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -29,8 +35,19 @@
             </thead>
             <tbody id="profile-body"></tbody>
         </table>
+
+        <table id="login-log-table" style="display: none; margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Login Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="login-log-body"></tbody>
+        </table>
     </div>
 
     <script src="admin-js.js"></script>
 </body>
-</html>
+</html> 
