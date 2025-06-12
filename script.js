@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginError = document.getElementById('login-error');
     const notification = document.getElementById('notification');
     const menuIcons = document.querySelectorAll('.menu-icon');
+    const detailsContainer = document.getElementById('details-container');
 
     // Toggle profile info visibility
     function toggleProfileInfo(event) {
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: name,
             card: card,
             address: address,
-            timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
+            timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) // 03:52 PM +07, 12/06/2025
         };
 
         if (name && card && address) {
@@ -110,13 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!icon.disabled) {
                 const targetId = icon.getAttribute('data-target');
                 document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-                setTimeout(updateMenuState, 500); // Update after scroll
+                setTimeout(updateMenuState, 500);
             }
         });
     });
 
     window.addEventListener('scroll', updateMenuState);
-    updateMenuState(); // Initial call
+    updateMenuState();
 
     // Slideshow Logic
     let slideIndex = 0;
@@ -141,4 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     showSlides();
+
+    // Toggle details
+    function toggleDetails() {
+        detailsContainer.style.display = detailsContainer.style.display === 'none' ? 'block' : 'none';
+    }
 });

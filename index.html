@@ -27,7 +27,7 @@
 
         <div class="profile-info">
             <label><strong>Name:</strong><input type="text" id="name" placeholder="Enter name"></label>
-            <label><strong>sdt:</strong><input type="text" id="card" placeholder="Enter card number"></label> <!-- Changed to type="text" -->
+            <label><strong>sdt:</strong><input type="text" id="card" placeholder="Enter card number"></label>
             <label><strong>Address:</strong><input type="text" id="address" placeholder="Enter address"></label>
             <div id="login-error" style="display: none; color: red;"></div>
             <button id="save-profile">Save</button>
@@ -51,6 +51,33 @@
     <div id="menu-section"></div>
 
     <div class="notification" id="notification">Your information has been sent!</div>
+
+    <!-- Vòng quay số -->
+    <div class="wheel-container">
+        <h2>VÒNG QUAY MAY MẮN</h2>
+        <div class="wheel">
+            <div class="wheel-inner" id="wheel-inner">099</div>
+        </div>
+        <button class="view-btn" onclick="toggleDetails()">Xem</button>
+    </div>
+
+    <!-- Thông tin chi tiết -->
+    <div class="details-container" id="details-container" style="display: none;">
+        <h2>PHÂN THƯỞNG XEM</h2>
+        <div class="details-content">
+            <p><strong>ĐÃ NHẬN - SỬ DỤNG</strong></p>
+            <p>15:30 1/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
+            <p>15:30 1/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
+            <p>15:30 1/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
+            <p><strong>ĐÃ NHẬN MỚI THƯỞNG</strong></p>
+            <p>01: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
+            <p>02: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
+            <p>03: THƯỞNG BIA HEINEKEN...(CHI TIẾT)</p>
+            <p>04: THƯỞNG BIA SÁT GỌN...(CHI TIẾT)</p>
+            <p>05: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
+            <p><strong>THƯỞNG</strong></p>
+        </div>
+    </div>
 
     <div class="new-menu">
         <button class="menu-icon" data-target="#top-bar"><img src="https://img.icons8.com/ios-filled/50/home.png" alt="Home"></button>
