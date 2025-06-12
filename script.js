@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveBtn = document.getElementById('save-profile');
     const loginError = document.getElementById('login-error');
     const notification = document.getElementById('notification');
+    const menuIcons = document.querySelectorAll('.menu-icon');
 
     // Toggle profile info visibility
     function toggleProfileInfo(event) {
@@ -32,12 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
             name: name,
             card: card,
             address: address,
-            timestamp: new Date().toLocaleString('en-US')
+            timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
         };
 
         if (name && card && address) {
             try {
-                // Send login request
                 const loginResponse = await fetch('backend/login.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const loginData = await loginResponse.json();
 
                 if (loginResponse.ok && loginData.success) {
-                    // Save profile if login succeeds
                     const profileResponse = await fetch('backend/profiles.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -78,27 +77,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Menu Logic
-    const menuBtn = document.querySelector('.menu');
-    const menuDropdown = document.getElementById('menu-dropdown');
+    // New Menu Logic with active state
+    function updateMenuState() {
+        const scrollPosition = window.scrollY;
+        const topBar = document.getElementById('top-bar').offsetTop;
+        const slideshow = document.getElementById('slideshow-container').offsetTop;
+        const menuSection = document.getElementById('menu-section').offsetTop;
 
-    menuBtn.addEventListener('click', () => {
-        menuDropdown.classList.toggle('show');
-    });
+        menuIcons.forEach(icon => {
+            icon.classList.remove('active');
+            icon.style.filter = 'brightness(0.5) invert(1)';
+            icon.style.border = 'none';
+        });
 
-    document.querySelectorAll('.menu-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const link = item.dataset.link;
-            if (link) window.location.href = link;
-            menuDropdown.classList.remove('show');
+        if (scrollPosition < slideshow) {
+            menuIcons[0].classList.add('active');
+            menuIcons[0].style.filter = 'none';
+            menuIcons[0].style.border = '2px solid #ffd700';
+        } else if (scrollPosition < menuSection) {
+            menuIcons[1].classList.add('active');
+            menuIcons[1].style.filter = 'none';
+            menuIcons[1].style.border = '2px solid #ffd700';
+        } else {
+            menuIcons[2].classList.add('active');
+            menuIcons[2].style.filter = 'none';
+            menuIcons[2].style.border = '2px solid #ffd700';
+        }
+    }
+
+    menuIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            if (!icon.disabled) {
+                const targetId = icon.getAttribute('data-target');
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+                setTimeout(updateMenuState, 500); // Update after scroll
+            }
         });
     });
 
-    document.addEventListener('click', (event) => {
-        if (!menuBtn.contains(event.target) && !menuDropdown.contains(event.target)) {
-            menuDropdown.classList.remove('show');
-        }
-    });
+    window.addEventListener('scroll', updateMenuState);
+    updateMenuState(); // Initial call
 
     // Slideshow Logic
     let slideIndex = 0;

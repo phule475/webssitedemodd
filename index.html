@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="header">
-        <div class="top-bar">
+        <div class="top-bar" id="top-bar">
             <div class="brand">
                 <h1>Bia +</h1>
                 <p>99 Thanh Tinh, TTDT Chi Linh, Vung Tau, BR-VT</p>
@@ -27,13 +27,14 @@
 
         <div class="profile-info">
             <label><strong>Name:</strong><input type="text" id="name" placeholder="Enter name"></label>
-            <label><strong>sdt:</strong><input type="int" id="card" placeholder="Enter card number"></label>
+            <label><strong>sdt:</strong><input type="text" id="card" placeholder="Enter card number"></label> <!-- Changed to type="text" -->
             <label><strong>Address:</strong><input type="text" id="address" placeholder="Enter address"></label>
+            <div id="login-error" style="display: none; color: red;"></div>
             <button id="save-profile">Save</button>
         </div>
     </div>
 
-    <div class="slideshow-container">
+    <div class="slideshow-container" id="slideshow-container">
         <div class="slide">
             <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Food 1">
         </div>
@@ -47,14 +48,17 @@
         <div class="next" onclick="changeSlide(1)">❯</div>
     </div>
 
-    <div class="menu">▲ MENU</div>
-
-    <div class="menu-dropdown" id="menu-dropdown">
-        <a href="bia-plus-menu.html" class="back-btn"><b>Bia +</b></a>
-        <button class="menu-item" data-link="#firefly2">Firefly 2</button>
-    </div>
+    <div id="menu-section"></div>
 
     <div class="notification" id="notification">Your information has been sent!</div>
+
+    <div class="new-menu">
+        <button class="menu-icon" data-target="#top-bar"><img src="https://img.icons8.com/ios-filled/50/home.png" alt="Home"></button>
+        <button class="menu-icon" data-target="#slideshow-container"><img src="https://img.icons8.com/ios-filled/50/image.png" alt="Slideshow"></button>
+        <button class="menu-icon" data-target="#menu-section"><img src="https://img.icons8.com/ios-filled/50/menu.png" alt="Menu"></button>
+        <button class="menu-icon" disabled><img src="https://img.icons8.com/ios-filled/50/plus.png" alt="Placeholder"></button>
+        <button class="menu-icon" disabled><img src="https://img.icons8.com/ios-filled/50/plus.png" alt="Placeholder"></button>
+    </div>
 
     <script src="script.js"></script>
 </body>
