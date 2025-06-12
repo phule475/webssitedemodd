@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const notification = document.getElementById('notification');
     const menuIcons = document.querySelectorAll('.menu-icon');
     const detailsContainer = document.getElementById('details-container');
+    const wheel = document.getElementById('wheel');
+    const wheelInner = document.getElementById('wheel-inner');
+    const spinBtn = document.querySelector('.spin-btn');
 
     // Toggle profile info visibility
     function toggleProfileInfo(event) {
@@ -34,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: name,
             card: card,
             address: address,
-            timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) // 03:52 PM +07, 12/06/2025
+            timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) // 04:07 PM +07, 12/06/2025
         };
 
         if (name && card && address) {
@@ -146,5 +149,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toggle details
     function toggleDetails() {
         detailsContainer.style.display = detailsContainer.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Wheel Spin Logic
+    let spinning = false;
+
+    function spinWheel() {
+        if (spinning) return;
+
+        spinning = true;
+        spinBtn.disabled = true;
+        const randomDegrees = Math.floor(Math.random() * 3600) + 720; // Quay nhiều vòng + ngẫu nhiên
+        const prizes = [50, 100, 150, 200, 250, 300, 350, 400]; // Các mức điểm ngẫu nhiên
+        const prize = prizes[Math.floor(Math.random() * prizes.length)];
+
+        wheelInner.style.transition = 'none';
+        wheelInner.style.transform = 'rotate(0deg)';
+        void wheelInner.offsetWidth; // Trigger reflow
+        wheelInner.style.transition = `transform 4s ease-out`;
+        wheelInner.style.transform = `rotate(${randomDegrees}deg)`;
+
+        setTimeout(() => {
+            wheelInner.textContent = prize;
+            spinning = false;
+            spinBtn.disabled = false;
+        }, 4000); // Thời gian quay 4s
     }
 });
