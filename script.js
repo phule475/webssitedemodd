@@ -1,3 +1,83 @@
+// Hàm sử dụng requestAnimationFrame để tối ưu hóa sự kiện scroll
+function rafThrottle(callback) {
+    let requestId = null;
+    let lastArgs = null;
+
+    const next = () => {
+        if (lastArgs) {
+            callback(...lastArgs);
+            lastArgs = null;
+            requestId = requestAnimationFrame(next);
+        } else {
+            requestId = null;
+        }
+    };
+
+    return function (...args) {
+        lastArgs = args;
+        if (!requestId) {
+            requestId = requestAnimationFrame(next);
+        }
+    };
+}
+
+// Hàm quay vòng
+window.spinWheel = function(wheelId = 'wheel', innerId = 'wheel-inner', notificationId = 'result-notification') {
+    const wheel = document.getElementById(wheelId);
+    const wheelInner = document.getElementById(innerId);
+    const resultNotification = document.getElementById(notificationId);
+    let spinning = wheel.dataset.spinning !== 'true';
+
+    if (!spinning) return;
+
+    wheel.dataset.spinning = 'true';
+    const randomDegrees = Math.floor(Math.random() * 360) + 1080;
+    const prize = Math.floor(Math.random() * 999) + 1;
+
+    wheel.style.transform = `rotate(${randomDegrees}deg)`;
+    wheel.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+
+    setTimeout(() => {
+        wheelInner.textContent = prize.toString().padStart(3, '0');
+    }, 4000);
+
+    setTimeout(() => {
+        wheel.style.transition = 'transform 1s ease-out';
+        wheel.style.transform = 'rotate(0deg)';
+
+        let rewardMessage = '';
+        if (prize <= 100) {
+            rewardMessage = 'Bạn nhận được: GIẢM GIÁ 10% TỚI 7 - ON...';
+        } else if (prize <= 200) {
+            rewardMessage = 'Bạn nhận được: THƯỞNG BIA HEINEKEN...';
+        } else if (prize <= 300) {
+            rewardMessage = 'Bạn nhận được: THƯỞNG BIA SÁT GỌN...';
+        } else if (prize <= 400) {
+            rewardMessage = 'Bạn nhận được: THƯỞNG ĐẶC BIỆT...';
+        } else if (prize <= 700) {
+            rewardMessage = 'Bạn nhận được: THƯỞNG SIÊU PHẨM...';
+        } else {
+            rewardMessage = 'Bạn nhận được: JACKPOT - GIẢM GIÁ 50%!';
+        }
+        resultNotification.textContent = `Số điểm: ${prize}. ${rewardMessage}`;
+        resultNotification.classList.add('active');
+
+        wheel.dataset.spinning = 'false';
+
+        setTimeout(() => {
+            resultNotification.classList.remove('active');
+            wheelInner.textContent = '000';
+        }, 4000);
+    }, 4000);
+};
+
+// Hàm toggle chi tiết
+window.toggleDetails = function() {
+    const detailsContainer = document.getElementById('details-container');
+    detailsContainer.style.display = detailsContainer.style.display === 'none' ? 'block' : 'none';
+};
+
+// Xử lý profile và menu
 document.addEventListener('DOMContentLoaded', () => {
     const profileBtn = document.querySelector('.profile-btn');
     const profileInfo = document.querySelector('.profile-info');
@@ -8,36 +88,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginError = document.getElementById('login-error');
     const notification = document.getElementById('notification');
     const menuIcons = document.querySelectorAll('.menu-icon');
-    const detailsContainer = document.getElementById('details-container');
-    const wheel = document.getElementById('wheel');
-    const wheelInner = document.getElementById('wheel-inner');
-    const spinBtn = document.querySelector('.spin-btn');
 
-    // Toggle profile info visibility
-    function toggleProfileInfo(event) {
+    // Toggle profile info
+    profileBtn.addEventListener('click', (event) => {
         event.preventDefault();
         profileInfo.classList.toggle('active');
-    }
+    });
 
-    profileBtn.addEventListener('click', toggleProfileInfo);
-
-    // Close form if clicked outside
     document.addEventListener('click', (event) => {
         if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
             profileInfo.classList.remove('active');
         }
     });
 
-    // Handle save profile (login and store data)
+    // Handle save profile
     saveBtn.addEventListener('click', async () => {
         const name = nameInput.value.trim();
         const card = cardInput.value.trim();
         const address = addressInput.value.trim();
         const profile = {
-            name: name,
-            card: card,
-            address: address,
-            timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) // 04:07 PM +07, 12/06/2025
+            name,
+            card,
+            address,
+            timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
         };
 
         if (name && card && address) {
@@ -81,46 +154,81 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // New Menu Logic with active state
+    // Menu logic
+    let lastActiveIndex = 0;
     function updateMenuState() {
         const scrollPosition = window.scrollY;
-        const topBar = document.getElementById('top-bar').offsetTop;
+        const headerHeight = document.querySelector('.header').offsetHeight || 0;
+        const menuHeight = document.querySelector('.new-menu').offsetHeight || 0;
+        const adjustedScroll = scrollPosition + headerHeight + menuHeight;
+
         const slideshow = document.getElementById('slideshow-container').offsetTop;
-        const menuSection = document.getElementById('menu-section').offsetTop;
+        const wheelSection = document.getElementById('wheel-section').offsetTop;
+        const wheel1Section = document.getElementById('wheel1-section').offsetTop;
+        const wheel2Section = document.getElementById('wheel2-section').offsetTop;
+        const buffer = 50;
 
-        menuIcons.forEach(icon => {
-            icon.classList.remove('active');
-            icon.style.filter = 'brightness(0.5) invert(1)';
-            icon.style.border = 'none';
-        });
+        const menuIcons = document.querySelectorAll('.menu-icon');
+        let activeIndex = lastActiveIndex;
 
-        if (scrollPosition < slideshow) {
-            menuIcons[0].classList.add('active');
-            menuIcons[0].style.filter = 'none';
-            menuIcons[0].style.border = '2px solid #ffd700';
-        } else if (scrollPosition < menuSection) {
-            menuIcons[1].classList.add('active');
-            menuIcons[1].style.filter = 'none';
-            menuIcons[1].style.border = '2px solid #ffd700';
-        } else {
-            menuIcons[2].classList.add('active');
-            menuIcons[2].style.filter = 'none';
-            menuIcons[2].style.border = '2px solid #ffd700';
+        if (adjustedScroll >= wheel2Section - buffer) activeIndex = 3;
+        else if (adjustedScroll >= wheel1Section - buffer) activeIndex = 2;
+        else if (adjustedScroll >= wheelSection - buffer) activeIndex = 1;
+        else activeIndex = 0;
+
+        if (activeIndex !== lastActiveIndex) {
+            menuIcons.forEach(icon => {
+                icon.classList.remove('active');
+                icon.style.filter = 'brightness(0.5) invert(1)';
+                icon.style.border = 'none';
+            });
+            menuIcons[activeIndex].classList.add('active');
+            menuIcons[activeIndex].style.filter = 'none';
+            menuIcons[activeIndex].style.border = '3px solid #ffd700';
+            lastActiveIndex = activeIndex;
         }
+
+        // Hiển thị tất cả section, chỉ kích hoạt section tương ứng
+        document.getElementById('slideshow-container').style.display = 'block';
+        document.getElementById('wheel-section').style.display = 'block';
+        document.getElementById('wheel1-section').style.display = 'block';
+        document.getElementById('wheel2-section').style.display = 'block';
     }
 
-    menuIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
+    menuIcons.forEach((icon, index) => {
+        icon.addEventListener('click', (event) => {
             if (!icon.disabled) {
+                event.preventDefault();
                 const targetId = icon.getAttribute('data-target');
-                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-                setTimeout(updateMenuState, 500);
+                console.log(`Nút ${index + 1} bấm: ${targetId}`);
+                const targetElement = document.querySelector(targetId) || document.getElementById('slideshow-container');
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const menuHeight = document.querySelector('.new-menu').offsetHeight;
+                const y = targetElement.offsetTop - headerHeight - menuHeight;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+
+                // Cập nhật trạng thái nút
+                menuIcons.forEach(i => {
+                    i.classList.remove('active');
+                    i.style.filter = 'brightness(0.5) invert(1)';
+                    i.style.border = 'none';
+                });
+                icon.classList.add('active');
+                icon.style.filter = 'none';
+                icon.style.border = '3px solid #ffd700';
+
+                // Hiển thị tất cả section, cuộn đến section tương ứng
+                document.getElementById('slideshow-container').style.display = 'block';
+                document.getElementById('wheel-section').style.display = 'block';
+                document.getElementById('wheel1-section').style.display = 'block';
+                document.getElementById('wheel2-section').style.display = 'block';
+
+                lastActiveIndex = index;
             }
         });
     });
 
-    window.addEventListener('scroll', updateMenuState);
-    updateMenuState();
+    window.addEventListener('scroll', rafThrottle(updateMenuState));
 
     // Slideshow Logic
     let slideIndex = 0;
@@ -145,34 +253,4 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     showSlides();
-
-    // Toggle details
-    function toggleDetails() {
-        detailsContainer.style.display = detailsContainer.style.display === 'none' ? 'block' : 'none';
-    }
-
-    // Wheel Spin Logic
-    let spinning = false;
-
-    function spinWheel() {
-        if (spinning) return;
-
-        spinning = true;
-        spinBtn.disabled = true;
-        const randomDegrees = Math.floor(Math.random() * 3600) + 720; // Quay nhiều vòng + ngẫu nhiên
-        const prizes = [50, 100, 150, 200, 250, 300, 350, 400]; // Các mức điểm ngẫu nhiên
-        const prize = prizes[Math.floor(Math.random() * prizes.length)];
-
-        wheelInner.style.transition = 'none';
-        wheelInner.style.transform = 'rotate(0deg)';
-        void wheelInner.offsetWidth; // Trigger reflow
-        wheelInner.style.transition = `transform 4s ease-out`;
-        wheelInner.style.transform = `rotate(${randomDegrees}deg)`;
-
-        setTimeout(() => {
-            wheelInner.textContent = prize;
-            spinning = false;
-            spinBtn.disabled = false;
-        }, 4000); // Thời gian quay 4s
-    }
 });

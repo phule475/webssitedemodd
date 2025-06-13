@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,52 +24,92 @@
                 <button class="profile-btn"><img src="https://img.icons8.com/ios-filled/50/user.png" alt="Profile"></button>
             </div>
         </div>
+    </div>
 
-        <div class="profile-info">
-            <label><strong>Name:</strong><input type="text" id="name" placeholder="Enter name"></label>
-            <label><strong>sdt:</strong><input type="text" id="card" placeholder="Enter card number"></label>
-            <label><strong>Address:</strong><input type="text" id="address" placeholder="Enter address"></label>
-            <div id="login-error" style="display: none; color: red;"></div>
-            <button id="save-profile">Save</button>
-        </div>
+    <div class="profile-info" id="profile-info">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+        <label for="card">sdt:</label>
+        <input type="text" id="card" placeholder="Enter your phone number">
+        <label for="address">Address:</label>
+        <input type="text" id="address" placeholder="Enter your address">
+        <button id="save-profile">Save</button>
+        <div id="login-error" style="display: none; color: red;"></div>
+    </div>
+
+    <div class="notification" id="notification">
+        Your information has been sent!
+    </div>
+
+    <div class="new-menu">
+        <button class="menu-icon" data-target="#slideshow-container"><img src="images/home-icon.png" alt="Home"></button>
+        <button class="menu-icon" data-target="#wheel-section"><img src="images/wheel-icon.png" alt="Wheel"></button>
+        <button class="menu-icon" data-target="#wheel1-section"><img src="images/wheel-icon.png" alt="Wheel1"></button>
+        <button class="menu-icon" data-target="#wheel2-section"><img src="images/wheel-icon.png" alt="Wheel2"></button>
+        <button class="menu-icon" data-target="#" disabled><img src="images/empty-icon.png" alt="Empty"></button>
     </div>
 
     <div class="slideshow-container" id="slideshow-container">
-        <div class="slide">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Food 1">
-        </div>
-        <div class="slide">
-            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Food 2">
-        </div>
-        <div class="slide">
-            <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Food 3">
-        </div>
-        <div class="prev" onclick="changeSlide(-1)">❮</div>
-        <div class="next" onclick="changeSlide(1)">❯</div>
+        <div class="slide active"><img src="images/slide1.jpg" alt="Slide 1"></div>
+        <div class="slide"><img src="images/slide2.jpg" alt="Slide 2"></div>
+        <div class="slide"><img src="images/slide3.jpg" alt="Slide 3"></div>
+        <a class="prev" onclick="changeSlide(-1)">❮</a>
+        <a class="next" onclick="changeSlide(1)">❯</a>
     </div>
 
-    <div id="menu-section"></div>
-
-    <div class="notification" id="notification">Your information has been sent!</div>
-
-    <!-- Vòng quay số -->
-    <div class="wheel-container">
+    <div id="wheel-section" class="wheel-container">
         <h2>VÒNG QUAY MAY MẮN</h2>
-        <div class="wheel" id="wheel">
-            <div class="wheel-inner" id="wheel-inner">000</div>
+        <div class="wheel-wrapper">
+            <div class="wheel" id="wheel">
+                <div class="wheel-inner" id="wheel-inner">000</div>
+            </div>
         </div>
-        <button class="spin-btn" onclick="spinWheel()">Quay</button>
-        <button class="view-btn" onclick="toggleDetails()">Xem</button>
+        <div class="wheel-buttons">
+            <button class="view-btn">Xem</button>
+            <button class="spin-btn" onclick="spinWheel('wheel', 'wheel-inner', 'result-notification')">Quay</button>
+        </div>
+        <div class="result-notification" id="result-notification"></div>
     </div>
 
-    <!-- Thông tin chi tiết -->
-    <div class="details-container" id="details-container" style="display: none;">
+    <div id="wheel1-section" class="wheel-container">
+        <h2>VÒNG QUAY MAY MẮN 1</h2>
+        <div class="wheel-row">
+            <div class="wheel-wrapper2">
+                <div class="wheel" id="wheel1">
+                    <div class="wheel-inner" id="wheel1-inner">000</div>
+                </div>
+            </div>
+            <div class="wheel-buttons">
+                <button class="view-btn" onclick="toggleDetails()">Xem</button>
+                <button class="spin-btn" onclick="spinWheel('wheel1', 'wheel1-inner', 'result1-notification')">Quay</button>
+            </div>
+        </div>
+        <div class="result-notification" id="result1-notification"></div>
+    </div>
+
+    <div id="wheel2-section" class="wheel-container">
+        <h2>VÒNG QUAY MAY MẮN 2</h2>
+        <div class="wheel-row">
+            <div class="wheel-wrapper2">
+                <div class="wheel" id="wheel2">
+                    <div class="wheel-inner" id="wheel2-inner">000</div>
+                </div>
+            </div>
+            <div class="wheel-buttons">
+                <button class="view-btn" onclick="toggleDetails()">Xem</button>
+                <button class="spin-btn" onclick="spinWheel('wheel2', 'wheel2-inner', 'result2-notification')">Quay</button>
+            </div>
+        </div>
+        <div class="result-notification" id="result2-notification"></div>
+    </div>
+
+    <div class="details-container" id="details-container">
         <h2>PHÂN THƯỞNG XEM</h2>
         <div class="details-content">
             <p><strong>ĐÃ NHẬN - SỬ DỤNG</strong></p>
-            <p>15:30 1/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
-            <p>15:30 1/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
-            <p>15:30 1/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
+            <p>05:28 12/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
+            <p>05:28 12/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
+            <p>05:28 12/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
             <p><strong>ĐÃ NHẬN MỚI THƯỞNG</strong></p>
             <p>01: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
             <p>02: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
@@ -78,14 +118,6 @@
             <p>05: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
             <p><strong>THƯỞNG</strong></p>
         </div>
-    </div>
-
-    <div class="new-menu">
-        <button class="menu-icon" data-target="#top-bar"><img src="https://img.icons8.com/ios-filled/50/home.png" alt="Home"></button>
-        <button class="menu-icon" data-target="#slideshow-container"><img src="https://img.icons8.com/ios-filled/50/image.png" alt="Slideshow"></button>
-        <button class="menu-icon" data-target="#menu-section"><img src="https://img.icons8.com/ios-filled/50/menu.png" alt="Menu"></button>
-        <button class="menu-icon" disabled><img src="https://img.icons8.com/ios-filled/50/plus.png" alt="Placeholder"></button>
-        <button class="menu-icon" disabled><img src="https://img.icons8.com/ios-filled/50/plus.png" alt="Placeholder"></button>
     </div>
 
     <script src="script.js"></script>

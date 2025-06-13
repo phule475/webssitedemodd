@@ -1,43 +1,54 @@
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('imges/image.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: #fff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-bottom: 70px; /* Đảm bảo không gian cho .new-menu */
+    justify-content: flex-start; /* Đảm bảo content không bị ép giữa */
+    align-items: center;
+    padding-bottom: 0;
 }
 
 .header {
-    background: rgba(255, 255, 255, 0.96);
+    background: #fff;
     padding: 20px;
-    border-radius: 0 0 16px 16px;
+    border-radius: 0 0 70px 70px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    color: #1f2937;
+    color: #1e3c72;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
     position: relative;
+    top: 0;
+    z-index: 10001;
 }
 
 .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
 .brand h1 {
     margin: 0;
     font-size: 28px;
     font-weight: 700;
-    color: #111827;
+    color: #1e3c72;
 }
 
 .brand p {
-    margin: 4px 0 0;
+    margin: 5px 0 0;
     font-size: 16px;
-    color: #4b5563;
+    color: #666;
 }
 
 .icon-row {
@@ -46,26 +57,34 @@ body {
     align-items: center;
 }
 
+.icon-row a {
+    text-decoration: none;
+}
+
 .icon-row button {
     background: #fff;
+    border: 2px solid #2a5298;
     border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    border: 1px solid #e5e7eb;
+    width: 50px;
+    height: 50px;
     padding: 0;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .icon-row button:hover {
-    transform: scale(1.1);
-    background-color: #f0f4f8;
+    transform: scale(1.2);
+    background-color: #e0e7ff;
 }
 
 .icon-row img {
-    width: 26px;
-    height: 26px;
+    width: 25px;
+    height: 25px;
+    filter: none;
 }
 
 .profile-info {
@@ -78,15 +97,15 @@ body {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.95);
     background: #fff;
-    border-radius: 12px;
-    padding: 14px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    color: #1f2937;
-    font-size: 15px;
-    width: 250px;
-    line-height: 1.6;
-    border: 1px solid #e5e7eb;
+    color: #1e3c72;
+    font-size: 16px;
+    width: 300px;
+    line-height: 1.8;
+    border: 2px solid #e0e7ff;
 }
 
 .profile-info.active {
@@ -97,25 +116,33 @@ body {
 
 .profile-info label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    font-weight: 500;
 }
 
 .profile-info input {
-    width: 92.5%;
-    padding: 6px 10px;
-    border-radius: 6px;
+    width: 95%;
+    padding: 8px 12px;
+    border-radius: 8px;
     border: 1px solid #ccc;
-    margin-top: 4px;
+    margin-top: 6px;
+    font-size: 14px;
 }
 
 .profile-info button {
-    margin-top: 10px;
-    padding: 8px 12px;
-    border-radius: 6px;
+    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 8px;
     border: none;
-    background: #1f2937;
+    background: #2a5298;
     color: white;
     cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.profile-info button:hover {
+    background: #1e3c72;
 }
 
 .notification {
@@ -126,16 +153,37 @@ body {
     transform: translateX(-50%);
     background-color: #28a745;
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 25px;
+    border-radius: 8px;
     z-index: 2000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: opacity 0.5s ease;
 }
 
 .notification.active {
     display: block;
     animation: fadeInOut 3s ease forwards;
+}
+
+.result-notification {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #28a745;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    z-index: 2000;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-size: 20px;
+}
+
+.result-notification.active {
+    display: block;
+    animation: fadeInOut 4s ease forwards;
 }
 
 @keyframes fadeInOut {
@@ -147,32 +195,32 @@ body {
 
 .new-menu {
     position: fixed;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: linear-gradient(135deg, #1f2937, #374151);
-    padding: 10px 0;
-    border-radius: 12px;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10000; /* Đảm bảo nó nằm trên tất cả */
-    max-width: calc(100% - 10px);
-    height: 60px; /* Chiều cao cố định */
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    padding: 12px 0;
+    border-radius: 15px;
+    box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+    max-width: calc(100% - 20px);
+    height: 70px;
 }
 
 .menu-icon {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
     transition: transform 0.2s ease;
 }
 
 .menu-icon img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     filter: brightness(0.5) invert(1);
 }
 
@@ -187,18 +235,18 @@ body {
 
 .menu-icon.active {
     filter: none !important;
-    border: 2px solid #ffd700 !important;
+    border: 3px solid #ffd700 !important;
 }
 
 .slideshow-container {
     width: 95%;
-    max-width: 800px;
-    height: 400px;
-    margin: 20px auto;
+    max-width: 900px;
+    height: 450px;
+    margin: 100px auto 20px; /* Điều chỉnh margin-top để tránh overlap với header cố định */
     position: relative;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.3);
     overflow: hidden;
 }
 
@@ -227,15 +275,15 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.8);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    color: #1f2937;
+    font-size: 28px;
+    color: #1e3c72;
     user-select: none;
     transition: background 0.3s ease;
     z-index: 10;
@@ -246,44 +294,178 @@ body {
 }
 
 .prev {
-    left: 10px;
+    left: 15px;
 }
 
 .next {
-    right: 10px;
+    right: 15px;
 }
 
-.back-btn {
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 220px;
-    height: 40px;
+.wheel-container {
     text-align: center;
+    margin: 20px auto;
+    max-width: 450px;
+    padding: 20px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.wheel-container h2 {
+    color: #fff;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.wheel-wrapper {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 20px;
+    position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.wheel {
+    width: 250px;
+    height: 250px;
+    border: 3px solid rgb(133, 132, 132);
+    border-radius: 50%;
+    overflow: hidden;
+    background: conic-gradient(
+        #ff6b6b 0deg 30deg,    /* Đỏ pastel */
+        #4ecdc4 30deg 60deg,   /* Xanh lá pastel */
+        #45b7d1 60deg 90deg,   /* Xanh dương nhạt */
+        #96ceb4 90deg 120deg,  /* Xanh ngọc */
+        #ffeead 120deg 150deg, /* Vàng nhạt */
+        #d4a4eb 150deg 180deg, /* Tím nhạt */
+        #ffcc5c 180deg 210deg, /* Cam nhạt */
+        #88d8b0 210deg 240deg, /* Xanh mint */
+        #ff9999 240deg 270deg, /* Hồng nhạt */
+        #9b59b6 270deg 300deg, /* Tím đậm */
+        yellow 300deg 330deg,
+        #28a745 330deg 360deg/* Đỏ đậm */
+    );
+    position: relative;
+    transform-origin: center center;
+}
+
+.wheel-inner {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e3c72;
+    font-size: 36px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.wheel-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.view-btn, .spin-btn {
+    background: #d4a4eb; /* Màu tím nhạt giống hình */
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 120px;
+    transition: background 0.3s ease, transform 0.2s ease;
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-btn:hover, .spin-btn:hover {
+    background: #c39bd3; /* Tím nhạt hơn khi hover */
+    transform: translateY(-2px);
+}
+
+.result-notification {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #28a745;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    z-index: 2000;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
     font-size: 20px;
 }
 
-.back-btn:hover {
-    background-color: #6dc0f6;
+.result-notification.active {
+    display: block;
+    animation: fadeInOut 4s ease forwards;
+}
+
+.view-btn:hover, .spin-btn:hover {
+    background: #6dc0f6;
     transform: translateY(-2px);
+}
+
+.details-container {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 450px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid #00ffcc;
+    padding: 25px;
+    border-radius: 15px;
+    display: none;
+    backdrop-filter: blur(5px);
+    margin-top: 20px; /* Điều chỉnh để tránh overlap với header cố định */
+}
+
+.details-container h2 {
+    color: #00ffcc;
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px #00ffcc;
+}
+
+.details-content {
+    color: #00ffcc;
+    text-align: left;
+}
+
+.details-content p {
+    margin: 8px 0;
+    font-size: 16px;
 }
 
 @media (max-width: 600px) {
     .top-bar {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 15px;
     }
 
     .brand h1 {
-        font-size: 22px;
+        font-size: 24px;
     }
 
     .brand p {
@@ -291,8 +473,8 @@ body {
     }
 
     .icon-row button {
-        width: 44px;
-        height: 44px;
+        width: 45px;
+        height: 45px;
     }
 
     .icon-row img {
@@ -307,108 +489,13 @@ body {
     .slideshow-container {
         max-width: 100%;
         height: 300px;
-        margin: 10px auto;
-        margin-bottom: 70px;
+        margin: 80px auto 20px;
         aspect-ratio: 16 / 9;
     }
 
     .prev, .next {
-        width: 30px;
-        height: 30px;
-        font-size: 18px;
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
     }
-}
-
-.wheel-container {
-    text-align: center;
-    margin: 20px auto;
-    max-width: 400px;
-}
-
-.wheel-container h2 {
-    color: #00ffcc;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.wheel {
-    width: 200px;
-    height: 200px;
-    border: 2px solid #00ffcc;
-    border-radius: 50%;
-    position: relative;
-    margin: 0 auto 20px;
-    overflow: hidden;
-    background: conic-gradient(#ff0000, #ff8000, #ffff00, #00ff00, #0000ff, #8000ff, #ff00ff, #ff0000);
-}
-
-.wheel-inner {
-    width: 100%;
-    height: 100%;
-    background: #000;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #00ffcc;
-    font-size: 40px;
-    font-weight: bold;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: transform 4s ease-out;
-}
-
-.spin-btn {
-    background: #00ffcc;
-    color: #000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
-}
-
-.spin-btn:hover {
-    background: #00b386;
-}
-
-.view-btn {
-    background: #00ffcc;
-    color: #000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.view-btn:hover {
-    background: #00b386;
-}
-
-.details-container {
-    text-align: center;
-    margin: 20px auto;
-    max-width: 400px;
-    background: #000;
-    border: 2px solid #00ffcc;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.details-container h2 {
-    color: #00ffcc;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.details-content {
-    color: #00ffcc;
-    text-align: left;
-}
-
-.details-content p {
-    margin: 5px 0;
 }
