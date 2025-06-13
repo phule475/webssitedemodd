@@ -196,9 +196,9 @@ body {
 
 .new-menu {
     position: fixed;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -207,7 +207,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
     z-index: 10000;
-    max-width: calc(100% - 20px);
+    max-width: calc(100% - 10px);
     height: 60px;
 }
 
@@ -249,6 +249,7 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     border: 2px solid rgba(255, 255, 255, 0.3);
     overflow: hidden;
+    z-index: 1;
 }
 
 .slide {
@@ -286,7 +287,7 @@ body {
     color: #1e3c72;
     user-select: none;
     transition: background 0.3s ease;
-    z-index: 10;
+    z-index: 2;
 }
 
 .prev:hover, .next:hover {
@@ -306,6 +307,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 15px;
+    z-index: 1;
 }
 
 .wheel-container {
@@ -320,6 +322,7 @@ body {
     overflow: hidden;
     border: 2px solid #ffd700;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
 }
 
 .wheel-container:hover {
@@ -369,6 +372,7 @@ body {
     transform-origin: center center;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), inset 0 0 12px rgba(0, 0, 0, 0.4);
     transition: transform 5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
 }
 
 .wheel[data-spinning="true"] {
@@ -434,6 +438,7 @@ body {
     padding: 12px;
     margin-top: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 1;
 }
 
 .wheel-buttons {
@@ -458,6 +463,7 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .view-btn:hover, .spin-btn:hover {
@@ -476,6 +482,7 @@ body {
     border-radius: 12px;
     backdrop-filter: blur(6px);
     margin-top: 15px;
+    z-index: 1;
 }
 
 .details-container h2 {
@@ -496,10 +503,11 @@ body {
 }
 
 .menu-section {
-    width: 90%;
-    max-width: 1000px;
-    margin: 15px auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 15px;
+    z-index: 1;
 }
 
 .menu-container {
@@ -509,6 +517,7 @@ body {
     padding: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     border: 2px solid #ffd700;
+    z-index: 1;
 }
 
 .menu-container h2 {
@@ -529,6 +538,7 @@ body {
     padding: 8px;
     scrollbar-width: thin;
     scrollbar-color: #ffd700 #1a1a2e;
+    z-index: 1;
 }
 
 .menu-grid::-webkit-scrollbar {
@@ -552,6 +562,7 @@ body {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    z-index: 1;
 }
 
 .menu-item:hover {
@@ -603,6 +614,7 @@ body {
     margin: 8px auto;
     display: block;
     transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 1;
 }
 
 .order-btn:hover {
@@ -616,6 +628,7 @@ body {
     padding: 12px;
     border-radius: 10px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .menu-item.expanded .item-details {
@@ -644,6 +657,7 @@ body {
 
 .related-items-container {
     margin-top: 10px;
+    z-index: 1;
 }
 
 .related-items-container h4 {
@@ -659,6 +673,7 @@ body {
     max-height: 100px;
     overflow: hidden;
     transition: max-height 0.5s ease;
+    z-index: 1;
 }
 
 .related-items.expanded {
@@ -672,6 +687,7 @@ body {
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    z-index: 1;
 }
 
 .related-items .related-item:hover {
@@ -703,6 +719,7 @@ body {
     font-size: 12px;
     width: 85%;
     margin: 6px auto;
+    z-index: 1;
 }
 
 .show-more-btn {
@@ -717,6 +734,7 @@ body {
     width: 100%;
     margin-top: 10px;
     transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 1;
 }
 
 .show-more-btn:hover {
