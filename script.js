@@ -24,7 +24,7 @@ window.spinWheel = function(wheelId = 'wheel', innerId = 'wheel-inner', notifica
     const wheel = document.getElementById(wheelId);
     const wheelInner = document.getElementById(innerId);
     const resultNotification = document.getElementById(notificationId);
-    let spinning = wheel.dataset.spinning !== 'true';
+    let spinning = wheel?.dataset.spinning !== 'true';
 
     if (!spinning) return;
 
@@ -71,7 +71,7 @@ window.spinWheel = function(wheelId = 'wheel', innerId = 'wheel-inner', notifica
 
 window.toggleDetails = function() {
     const rewardInfo = document.getElementById('reward-info');
-    if (rewardInfo.style.display === 'none' || rewardInfo.style.display === '') {
+    if (rewardInfo?.style.display === 'none' || rewardInfo?.style.display === '') {
         rewardInfo.style.display = 'block';
     } else {
         rewardInfo.style.display = 'none';
@@ -80,9 +80,11 @@ window.toggleDetails = function() {
 
 window.toggleRelated = function(relatedId) {
     const relatedItems = document.getElementById(relatedId);
-    const showMoreBtn = relatedItems.nextElementSibling;
-    relatedItems.classList.toggle('expanded');
-    showMoreBtn.textContent = relatedItems.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
+    const showMoreBtn = relatedItems?.nextElementSibling;
+    relatedItems?.classList.toggle('expanded');
+    if (showMoreBtn) {
+        showMoreBtn.textContent = relatedItems.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -97,153 +99,170 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuIcons = document.querySelectorAll('.menu-icon');
     const menuItems = document.querySelectorAll('.menu-item');
 
-    profileBtn.addEventListener('click', (event) => {
-        event.preventDefault();
-        profileInfo.classList.toggle('active');
-    });
+    if (profileBtn && profileInfo) {
+        profileBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            profileInfo.classList.toggle('active');
+        });
 
-    document.addEventListener('click', (event) => {
-        if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
-            profileInfo.classList.remove('active');
-        }
-    });
+        document.addEventListener('click', (event) => {
+            if (!profileBtn.contains(event.target) && !profileInfo.contains(event.target)) {
+                profileInfo.classList.remove('active');
+            }
+        });
+    }
 
-    saveBtn.addEventListener('click', async () => {
-        const name = nameInput.value.trim();
-        const card = cardInput.value.trim();
-        const address = addressInput.value.trim();
-        const profile = {
-            name,
-            card,
-            address,
-            timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
-        };
-
-        if (name && card && address) {
-            try {
-                const loginResponse = await fetch('backend/login.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username: name, password: card })
-                });
-                const loginData = await loginResponse.json();
-
-                if (loginResponse.ok && loginData.success) {
-                    const profileResponse = await fetch('backend/profiles.php', {
+    if (saveBtn) {
+        saveBtn.addEventListener('click', async () => {
+            const name = nameInput?.value.trim();
+            const card = cardInput?.value.trim();
+            const address = addressInput?.value.trim();
+            if (name && card && address) {
+                const profile = {
+                    name,
+                    card,
+                    address,
+                    timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
+                };
+                try {
+                    const loginResponse = await fetch('backend/login.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(profile)
+                        body: JSON.stringify({ username: name, password: card })
                     });
+                    const loginData = await loginResponse.json();
 
-                    if (profileResponse.ok) {
-                        notification.classList.add('active');
-                        setTimeout(() => notification.classList.remove('active'), 3000);
-                        profileInfo.classList.remove('active');
-                        nameInput.value = '';
-                        cardInput.value = '';
-                        addressInput.value = '';
+                    if (loginResponse.ok && loginData.success) {
+                        const profileResponse = await fetch('backend/profiles.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(profile)
+                        });
+
+                        if (profileResponse.ok) {
+                            if (notification) {
+                                notification.classList.add('active');
+                                setTimeout(() => notification.classList.remove('active'), 3000);
+                            }
+                            if (profileInfo) profileInfo.classList.remove('active');
+                            if (nameInput) nameInput.value = '';
+                            if (cardInput) cardInput.value = '';
+                            if (addressInput) addressInput.value = '';
+                        } else {
+                            throw new Error('Failed to save profile');
+                        }
                     } else {
-                        throw new Error('Failed to save profile');
+                        if (loginError) {
+                            loginError.style.display = 'block';
+                            loginError.textContent = loginData.message || 'Invalid login credentials!';
+                        }
                     }
-                } else {
-                    loginError.style.display = 'block';
-                    loginError.textContent = loginData.message || 'Invalid login credentials!';
+                } catch (error) {
+                    console.error('Error:', error);
+                    if (loginError) {
+                        loginError.style.display = 'block';
+                        loginError.textContent = 'System error. Please try again!';
+                    }
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                loginError.style.display = 'block';
-                loginError.textContent = 'System error. Please try again!';
+            } else {
+                if (loginError) {
+                    loginError.style.display = 'block';
+                    loginError.textContent = 'Please fill in all fields!';
+                }
             }
-        } else {
-            loginError.style.display = 'block';
-            loginError.textContent = 'Please fill in all fields!';
-        }
-    });
+        });
+    }
 
-    menuItems.forEach((item, index) => {
+    menuItems.forEach((item) => {
         const itemName = item.querySelector('.item-name');
         const itemDetails = item.querySelector('.item-details');
         const relatedItems = item.querySelector('.related-items');
         const showMoreBtn = item.querySelector('.show-more-btn');
         const relatedTarget = item.getAttribute('data-related');
 
-        itemName.addEventListener('click', () => {
-            menuItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('expanded');
-                    const otherDetails = otherItem.querySelector('.item-details');
-                    if (otherDetails) otherDetails.classList.remove('active');
-                    const otherRelatedItems = otherItem.querySelector('.related-items');
-                    if (otherRelatedItems) otherRelatedItems.classList.remove('expanded');
-                    const otherShowMoreBtn = otherItem.querySelector('.show-more-btn');
-                    if (otherShowMoreBtn) otherShowMoreBtn.textContent = 'Xem thêm';
+        if (itemName && itemDetails) {
+            itemName.addEventListener('click', () => {
+                menuItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('expanded');
+                        const otherDetails = otherItem.querySelector('.item-details');
+                        if (otherDetails) otherDetails.classList.remove('active');
+                        const otherRelatedItems = otherItem.querySelector('.related-items');
+                        if (otherRelatedItems) otherRelatedItems.classList.remove('expanded');
+                        const otherShowMoreBtn = otherItem.querySelector('.show-more-btn');
+                        if (otherShowMoreBtn) otherShowMoreBtn.textContent = 'Xem thêm';
+                    }
+                });
+
+                item.classList.toggle('expanded');
+                itemDetails.classList.toggle('active');
+
+                if (item.classList.contains('expanded') && relatedTarget && relatedItems) {
+                    relatedItems.innerHTML = '';
+
+                    const relatedItem = document.querySelector(`#${relatedTarget}`);
+                    if (relatedItem) {
+                        const relatedDiv = document.createElement('div');
+                        relatedDiv.classList.add('related-item');
+
+                        const img = document.createElement('img');
+                        img.src = relatedItem.querySelector('img')?.src;
+                        img.alt = relatedItem.querySelector('.item-name')?.textContent;
+
+                        const h5 = document.createElement('h5');
+                        h5.textContent = relatedItem.querySelector('.item-name')?.textContent;
+
+                        const p = document.createElement('p');
+                        p.textContent = relatedItem.querySelector('.price')?.textContent;
+
+                        const btn = document.createElement('button');
+                        btn.classList.add('order-btn');
+                        btn.textContent = 'Xem chi tiết';
+                        btn.addEventListener('click', () => {
+                            const targetElement = document.querySelector(`#${relatedTarget}`);
+                            if (targetElement) {
+                                const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                                const menuHeight = document.querySelector('.new-menu')?.offsetHeight || 0;
+                                const y = targetElement.offsetTop - headerHeight - menuHeight - 20;
+                                window.scrollTo({ top: y, behavior: 'smooth' });
+                                targetElement.querySelector('.item-name')?.click();
+                            }
+                        });
+
+                        if (img.src) relatedDiv.appendChild(img);
+                        if (h5.textContent) relatedDiv.appendChild(h5);
+                        if (p.textContent) relatedDiv.appendChild(p);
+                        if (btn) relatedDiv.appendChild(btn);
+                        relatedItems.appendChild(relatedDiv);
+                    } else {
+                        const noRelated = document.createElement('p');
+                        noRelated.textContent = 'Không có món liên quan';
+                        noRelated.style.color = '#666';
+                        noRelated.style.fontSize = '12px';
+                        relatedItems.appendChild(noRelated);
+                    }
                 }
             });
+        }
 
-            item.classList.toggle('expanded');
-            itemDetails.classList.toggle('active');
-
-            if (item.classList.contains('expanded') && relatedTarget) {
-                relatedItems.innerHTML = '';
-
-                const relatedItem = document.querySelector(`#${relatedTarget}`);
-                if (relatedItem) {
-                    const relatedDiv = document.createElement('div');
-                    relatedDiv.classList.add('related-item');
-
-                    const img = document.createElement('img');
-                    img.src = relatedItem.querySelector('img').src;
-                    img.alt = relatedItem.querySelector('.item-name').textContent;
-
-                    const h5 = document.createElement('h5');
-                    h5.textContent = relatedItem.querySelector('.item-name').textContent;
-
-                    const p = document.createElement('p');
-                    p.textContent = relatedItem.querySelector('.price').textContent;
-
-                    const btn = document.createElement('button');
-                    btn.classList.add('order-btn');
-                    btn.textContent = 'Xem chi tiết';
-                    btn.addEventListener('click', () => {
-                        const targetElement = document.querySelector(`#${relatedTarget}`);
-                        const headerHeight = document.querySelector('.header').offsetHeight;
-                        const menuHeight = document.querySelector('.new-menu').offsetHeight;
-                        const y = targetElement.offsetTop - headerHeight - menuHeight;
-                        window.scrollTo({ top: y, behavior: 'smooth' });
-                        targetElement.querySelector('.item-name').click();
-                    });
-
-                    relatedDiv.appendChild(img);
-                    relatedDiv.appendChild(h5);
-                    relatedDiv.appendChild(p);
-                    relatedDiv.appendChild(btn);
-                    relatedItems.appendChild(relatedDiv);
-                } else {
-                    const noRelated = document.createElement('p');
-                    noRelated.textContent = 'Không có món liên quan';
-                    noRelated.style.color = '#666';
-                    noRelated.style.fontSize = '12px';
-                    relatedItems.appendChild(noRelated);
-                }
-            }
-        });
-
-        showMoreBtn.addEventListener('click', () => {
-            relatedItems.classList.toggle('expanded');
-            showMoreBtn.textContent = relatedItems.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
-        });
+        if (showMoreBtn && relatedItems) {
+            showMoreBtn.addEventListener('click', () => {
+                relatedItems.classList.toggle('expanded');
+                showMoreBtn.textContent = relatedItems.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
+            });
+        }
     });
 
     let lastActiveIndex = 0;
     function updateMenuState() {
         const scrollPosition = window.scrollY;
-        const headerHeight = document.querySelector('.header').offsetHeight || 0;
-        const menuHeight = document.querySelector('.new-menu').offsetHeight || 0;
+        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+        const menuHeight = document.querySelector('.new-menu')?.offsetHeight || 0;
         const adjustedScroll = scrollPosition + headerHeight + menuHeight;
 
-        const slideshow = document.getElementById('slideshow-container').offsetTop;
-        const wheelSection = document.getElementById('wheel-section').offsetTop;
-        const menuSection = document.getElementById('menu-section').offsetTop;
+        const slideshow = document.getElementById('slideshow-container')?.offsetTop || Infinity;
+        const wheelSection = document.getElementById('wheel-section')?.offsetTop || Infinity;
+        const menuSection = document.getElementById('menu-section')?.offsetTop || Infinity;
         const buffer = 50;
 
         let activeIndex = lastActiveIndex;
@@ -252,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (adjustedScroll >= wheelSection - buffer) activeIndex = 1;
         else activeIndex = 0;
 
-        if (activeIndex !== lastActiveIndex) {
+        if (activeIndex !== lastActiveIndex && menuIcons[activeIndex]) {
             menuIcons.forEach(icon => {
                 icon.classList.remove('active');
                 icon.style.filter = 'brightness(0.5) invert(1)';
@@ -263,42 +282,35 @@ document.addEventListener('DOMContentLoaded', () => {
             menuIcons[activeIndex].style.border = '2px solid #ffd700';
             lastActiveIndex = activeIndex;
         }
-
-        document.getElementById('slideshow-container').style.display = 'block';
-        document.getElementById('wheel-section').style.display = 'block';
-        document.getElementById('menu-section').style.display = 'block';
     }
 
-    menuIcons.forEach((icon, index) => {
-        icon.addEventListener('click', (event) => {
-            if (!icon.disabled) {
+    if (menuIcons.length) {
+        menuIcons.forEach((icon, index) => {
+            icon.addEventListener('click', (event) => {
                 event.preventDefault();
                 const targetId = icon.getAttribute('data-target');
-                const targetElement = document.querySelector(targetId) || document.getElementById('slideshow-container');
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const menuHeight = document.querySelector('.new-menu').offsetHeight;
-                const y = targetElement.offsetTop - headerHeight - menuHeight;
-                window.scrollTo({ top: y, behavior: 'smooth' });
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                    const menuHeight = document.querySelector('.new-menu')?.offsetHeight || 0;
+                    const y = targetElement.offsetTop - headerHeight - menuHeight - 20;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
 
-                menuIcons.forEach(i => {
-                    i.classList.remove('active');
-                    i.style.filter = 'brightness(0.5) invert(1)';
-                    i.style.border = 'none';
-                });
-                icon.classList.add('active');
-                icon.style.filter = 'none';
-                icon.style.border = '2px solid #ffd700';
-
-                document.getElementById('slideshow-container').style.display = 'block';
-                document.getElementById('wheel-section').style.display = 'block';
-                document.getElementById('menu-section').style.display = 'block';
-
-                lastActiveIndex = index;
-            }
+                    menuIcons.forEach(i => {
+                        i.classList.remove('active');
+                        i.style.filter = 'brightness(0.5) invert(1)';
+                        i.style.border = 'none';
+                    });
+                    icon.classList.add('active');
+                    icon.style.filter = 'none';
+                    icon.style.border = '2px solid #ffd700';
+                    lastActiveIndex = index;
+                }
+            });
         });
-    });
 
-    window.addEventListener('scroll', rafThrottle(updateMenuState));
+        window.addEventListener('scroll', rafThrottle(updateMenuState));
+    }
 
     let slideIndex = 0;
     let autoSlideTimeout;
@@ -310,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (slideIndex >= slides.length) slideIndex = 0;
         if (slideIndex < 0) slideIndex = slides.length - 1;
-        slides[i].classList.add("active");
+        if (slides[slideIndex]) slides[slideIndex].classList.add("active");
         slideIndex++;
         clearTimeout(autoSlideTimeout);
         autoSlideTimeout = setTimeout(showSlides, 3000);
