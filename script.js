@@ -20,7 +20,6 @@ function rafThrottle(callback) {
     };
 }
 
-// Hàm quay vòng
 window.spinWheel = function(wheelId = 'wheel', innerId = 'wheel-inner', notificationId = 'result-notification') {
     const wheel = document.getElementById(wheelId);
     const wheelInner = document.getElementById(innerId);
@@ -70,7 +69,6 @@ window.spinWheel = function(wheelId = 'wheel', innerId = 'wheel-inner', notifica
     }, 3000);
 };
 
-// Hàm toggle chi tiết
 window.toggleDetails = function() {
     const rewardInfo = document.getElementById('reward-info');
     if (rewardInfo.style.display === 'none' || rewardInfo.style.display === '') {
@@ -80,7 +78,13 @@ window.toggleDetails = function() {
     }
 };
 
-// Xử lý profile và menu
+window.toggleRelated = function(relatedId) {
+    const relatedItems = document.getElementById(relatedId);
+    const showMoreBtn = relatedItems.nextElementSibling;
+    relatedItems.classList.toggle('expanded');
+    showMoreBtn.textContent = relatedItems.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const profileBtn = document.querySelector('.profile-btn');
     const profileInfo = document.querySelector('.profile-info');
@@ -93,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuIcons = document.querySelectorAll('.menu-icon');
     const menuItems = document.querySelectorAll('.menu-item');
 
-    // Toggle profile info
     profileBtn.addEventListener('click', (event) => {
         event.preventDefault();
         profileInfo.classList.toggle('active');
@@ -105,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Handle save profile
     saveBtn.addEventListener('click', async () => {
         const name = nameInput.value.trim();
         const card = cardInput.value.trim();
@@ -158,16 +160,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Menu item expansion logic
-    menuItems.forEach(item => {
+    menuItems.forEach((item, index) => {
         const itemName = item.querySelector('.item-name');
+        const itemDetails = item.querySelector('.item-details');
+        const relatedItems = item.querySelector('.related-items');
         const showMoreBtn = item.querySelector('.show-more-btn');
+        const relatedTarget = item.getAttribute('data-related');
 
         itemName.addEventListener('click', () => {
-            // Close any previously expanded item
             menuItems.forEach(otherItem => {
                 if (otherItem !== item) {
                     otherItem.classList.remove('expanded');
+                    const otherDetails = otherItem.querySelector('.item-details');
+                    if (otherDetails) otherDetails.classList.remove('active');
                     const otherRelatedItems = otherItem.querySelector('.related-items');
                     if (otherRelatedItems) otherRelatedItems.classList.remove('expanded');
                     const otherShowMoreBtn = otherItem.querySelector('.show-more-btn');
@@ -175,69 +180,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Toggle expansion
             item.classList.toggle('expanded');
+            itemDetails.classList.toggle('active');
 
-            // Populate related items
-            if (item.classList.contains('expanded')) {
-                const ingredient = item.dataset.ingredient;
-                const method = item.dataset.method;
-                const relatedContainer = item.querySelector('.related-items');
-                relatedContainer.innerHTML = '';
+            if (item.classList.contains('expanded') && relatedTarget) {
+                relatedItems.innerHTML = '';
 
-                // Filter related items (first by ingredient, then by method)
-                const relatedItems = Array.from(menuItems).filter(otherItem => {
-                    return (otherItem !== item) && 
-                           (otherItem.dataset.ingredient === ingredient || otherItem.dataset.method === method);
-                });
+                const relatedItem = document.querySelector(`#${relatedTarget}`);
+                if (relatedItem) {
+                    const relatedDiv = document.createElement('div');
+                    relatedDiv.classList.add('related-item');
 
-                if (relatedItems.length === 0) {
+                    const img = document.createElement('img');
+                    img.src = relatedItem.querySelector('img').src;
+                    img.alt = relatedItem.querySelector('.item-name').textContent;
+
+                    const h5 = document.createElement('h5');
+                    h5.textContent = relatedItem.querySelector('.item-name').textContent;
+
+                    const p = document.createElement('p');
+                    p.textContent = relatedItem.querySelector('.price').textContent;
+
+                    const btn = document.createElement('button');
+                    btn.classList.add('order-btn');
+                    btn.textContent = 'Xem chi tiết';
+                    btn.addEventListener('click', () => {
+                        const targetElement = document.querySelector(`#${relatedTarget}`);
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const menuHeight = document.querySelector('.new-menu').offsetHeight;
+                        const y = targetElement.offsetTop - headerHeight - menuHeight;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                        targetElement.querySelector('.item-name').click();
+                    });
+
+                    relatedDiv.appendChild(img);
+                    relatedDiv.appendChild(h5);
+                    relatedDiv.appendChild(p);
+                    relatedDiv.appendChild(btn);
+                    relatedItems.appendChild(relatedDiv);
+                } else {
                     const noRelated = document.createElement('p');
                     noRelated.textContent = 'Không có món liên quan';
                     noRelated.style.color = '#666';
                     noRelated.style.fontSize = '12px';
-                    noRelated.style.padding = '6px';
-                    relatedContainer.appendChild(noRelated);
-                } else {
-                    relatedItems.forEach(relatedItem => {
-                        const relatedDiv = document.createElement('div');
-                        relatedDiv.classList.add('related-item');
-
-                        const img = document.createElement('img');
-                        img.src = relatedItem.querySelector('img').src;
-                        img.alt = relatedItem.querySelector('.item-name').textContent;
-
-                        const h5 = document.createElement('h5');
-                        h5.textContent = relatedItem.querySelector('.item-name').textContent;
-
-                        const p = document.createElement('p');
-                        p.textContent = relatedItem.querySelector('p').textContent;
-
-                        const btn = document.createElement('button');
-                        btn.classList.add('order-btn');
-                        btn.textContent = 'Đặt hàng';
-
-                        relatedDiv.appendChild(img);
-                        relatedDiv.appendChild(h5);
-                        relatedDiv.appendChild(p);
-                        relatedDiv.appendChild(btn);
-                        relatedContainer.appendChild(relatedDiv);
-                    });
+                    relatedItems.appendChild(noRelated);
                 }
             }
         });
 
-        // Show more button for related items
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', () => {
-                const relatedItems = item.querySelector('.related-items');
-                relatedItems.classList.toggle('expanded');
-                showMoreBtn.textContent = relatedItems.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
-            });
-        }
+        showMoreBtn.addEventListener('click', () => {
+            relatedItems.classList.toggle('expanded');
+            showMoreBtn.textContent = relatedItems.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
+        });
     });
 
-    // Menu logic
     let lastActiveIndex = 0;
     function updateMenuState() {
         const scrollPosition = window.scrollY;
@@ -304,7 +300,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', rafThrottle(updateMenuState));
 
-    // Slideshow Logic
     let slideIndex = 0;
     let autoSlideTimeout;
 
@@ -315,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (slideIndex >= slides.length) slideIndex = 0;
         if (slideIndex < 0) slideIndex = slides.length - 1;
-        slides[slideIndex].classList.add("active");
+        slides[i].classList.add("active");
         slideIndex++;
         clearTimeout(autoSlideTimeout);
         autoSlideTimeout = setTimeout(showSlides, 3000);

@@ -75,185 +75,399 @@
             </div>
         </div>
         <div class="wheel-buttons">
-<button class="view-btn" onclick="toggleDetails()">Xem</button>
+            <button class="view-btn" onclick="toggleDetails()">Xem</button>
             <button class="spin-btn" onclick="spinWheel('wheel', 'wheel-inner', 'result-notification')">Quay</button>
         </div>
         <div class="result-notification" id="result-notification"></div>
-    <div id="reward-info" class="reward-info" style="display:none;">
-        <h3>Thông tin phần thưởng</h3>
-        <p>01: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
-        <p>02: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
-        <p>03: THƯỞNG BIA HEINEKEN...(CHI TIẾT)</p>
-        <p>04: THƯỞNG BIA SÁT GỌN...(CHI TIẾT)</p>
-        <p>05: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
-    </div>
-    </div>
-
-    
-    <div class="details-container" id="details-container">
-        <h2>PHÂN THƯỞNG XEM</h2>
-        <div class="details-content">
-            <p><strong>ĐÃ NHẬN - SỬ DỤNG</strong></p>
-            <p>05:28 12/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
-            <p>05:28 12/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
-            <p>05:28 12/6/2025 : TRƯỜNG PHÂN THƯỞNG 69</p>
-            <p><strong>ĐÃ NHẬN MỚI THƯỞNG</strong></p>
+        <div id="reward-info" class="reward-info" style="display:none;">
+            <h3>Thông tin phần thưởng</h3>
             <p>01: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
             <p>02: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
             <p>03: THƯỞNG BIA HEINEKEN...(CHI TIẾT)</p>
             <p>04: THƯỞNG BIA SÁT GỌN...(CHI TIẾT)</p>
             <p>05: GIẢM GIÁ 10% TỚI 7 - ON...(CHI TIẾT)</p>
-            <p><strong>THƯỞNG</strong></p>
         </div>
     </div>
+
     <div class="menu-section" id="menu-section">
-        <div class="menu-container">
-            <h2>THỰC ĐƠN</h2>
-            <div class="menu-grid">
-                <div class="menu-item" data-ingredient="beer" data-method="brewed">
-                    <img src="menu-item1.jpg" alt="Item 1">
-                    <h3 class="item-name">Bia Heineken</h3>
-                    <p>Giá: 25,000 VNĐ</p>
-                    <button class="order-btn">Đặt hàng</button>
-                    <div class="item-details">
-                        <img src="menu-item1.jpg" alt="Item 1">
-                        <h3>Bia Heineken</h3>
-                        <p><strong>Nguyên liệu:</strong> Nước, lúa mạch, hoa bia</p>
-                        <p><strong>Loại chế biến:</strong> Ủ bia</p>
-                        <div class="related-items-container">
-                            <h4>Món liên quan:</h4>
-                            <div class="related-items"></div>
-                            <button class="show-more-btn">Xem thêm</button>
-                        </div>
+        <div class="menu-grid">
+            <div class="menu-item" id="item-1" data-related="item-2">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="imges/iconnn.jpg" alt="Order"></button>
+                    <span class="item-name">Gà Nấu Nấm</span>
+                    <span class="price">120,000 VNĐ</span>
+                </div>
+                <img src="imges/52114712440_0c5430db58_k.jpg" alt="Gà Nấu Nấm">
+                <div class="item-details">
+                    <h3>Gà Nấu Nấm</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Thịt gà</li>
+                            <li>Nấm hương</li>
+                            <li>Hành tây</li>
+                            <li>Gia vị</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        
+                        <p>3. Nêm nếm và thưởng thức.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-1"></div>
+                        <button class="show-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="menu-item" data-ingredient="beer" data-method="brewed">
-                    <img src="menu-item2.jpg" alt="Item 2">
-                    <h3 class="item-name">Bia Sài Gòn</h3>
-                    <p>Giá: 20,000 VNĐ</p>
-                    <button class="order-btn">Đặt hàng</button>
-                    <div class="item-details">
-                        <img src="menu-item2.jpg" alt="Item 2">
-                        <h3>Bia Sài Gòn</h3>
-                        <p><strong>Nguyên liệu:</strong> Nước, lúa mạch, men bia</p>
-                        <p><strong>Loại chế biến:</strong> Ủ bia</p>
-                        <div class="related-items-container">
-                            <h4>Món liên quan:</h4>
-                            <div class="related-items"></div>
-                            <button class="show-more-btn">Xem thêm</button>
-                        </div>
+            </div>
+            <div class="menu-item" id="item-2" data-related="item-3">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Gà Chiên Mắm</span>
+                    <span class="price">130,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1625938144756-261f641cbb3e" alt="Gà Chiên Mắm">
+                <div class="item-details">
+                    <h3>Gà Chiên Mắm</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Thịt gà: 500g</li>
+                            <li>Nước mắm: 50ml</li>
+                            <li>Tỏi: 3 tép</li>
+                            <li>Gia vị: đường, ớt</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Chiên gà đến khi vàng giòn.</p>
+                        <p>2. Phi tỏi thơm, thêm nước mắm và đường.</p>
+                        <p>3. Áp chảo gà với hỗn hợp mắm.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-2"></div>
+                        <button class="show-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="menu-item" data-ingredient="mint" data-method="mixed">
-                    <img src="menu-item3.jpg" alt="Item 3">
-                    <h3 class="item-name">Cocktail Mojito</h3>
-                    <p>Giá: 50,000 VNĐ</p>
-                    <button class="order-btn">Đặt hàng</button>
-                    <div class="item-details">
-                        <img src="menu-item3.jpg" alt="Item 3">
-                        <h3>Cocktail Mojito</h3>
-                        <p><strong>Nguyên liệu:</strong> Lá bạc hà, chanh, đường, soda, rum</p>
-                        <p><strong>Loại chế biến:</strong> Pha chế</p>
-                        <div class="related-items-container">
-                            <h4>Món liên quan:</h4>
-                            <div class="related-items"></div>
-                            <button class="show-more-btn">Xem thêm</button>
-                        </div>
+            </div>
+            <div class="menu-item" id="item-3" data-related="item-4">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Bò Nấu Nấm</span>
+                    <span class="price">150,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1600891964008-43c8b509c3b3" alt="Bò Nấu Nấm">
+                <div class="item-details">
+                    <h3>Bò Nấu Nấm</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Thịt bò: 400g</li>
+                            <li>Nấm rơm: 150g</li>
+                            <li>Hành tím: 2 củ</li>
+                            <li>Gia vị: dầu hào, nước tương</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Ướp bò với gia vị 20 phút.</p>
+                        <p>2. Xào nấm và hành, thêm bò vào nấu chín.</p>
+                        <p>3. Nêm nếm và dùng nóng.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-3"></div>
+                        <button class="show-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="menu-item" data-ingredient="orange" data-method="juiced">
-                    <img src="menu-item4.jpg" alt="Item 4">
-                    <h3 class="item-name">Nước Ép Cam</h3>
-                    <p>Giá: 30,000 VNĐ</p>
-                    <button class="order-btn">Đặt hàng</button>
-                    <div class="item-details">
-                        <img src="menu-item4.jpg" alt="Item 4">
-                        <h3>Nước Ép Cam</h3>
-                        <p><strong>Nguyên liệu:</strong> Cam tươi</p>
-                        <p><strong>Loại chế biến:</strong> Ép</p>
-                        <div class="related-items-container">
-                            <h4>Món liên quan:</h4>
-                            <div class="related-items"></div>
-                            <button class="show-more-btn">Xem thêm</button>
-                        </div>
+            </div>
+            <div class="menu-item" id="item-4" data-related="item-5">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Cá Kho Tộ</span>
+                    <span class="price">140,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1627309302276-4d7f08f3b0d5" alt="Cá Kho Tộ">
+                <div class="item-details">
+                    <h3>Cá Kho Tộ</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Cá lóc: 500g</li>
+                            <li>Nước mắm: 50ml</li>
+                            <li>Tiêu: 1 muỗng</li>
+                            <li>Hành lá: 2 nhánh</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Ướp cá với nước mắm và tiêu.</p>
+                        <p>2. Kho cá trên lửa nhỏ 1 giờ.</p>
+                        <p>3. Rắc hành lá trước khi dùng.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-4"></div>
+                        <button class="show-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="menu-item" data-ingredient="beer" data-method="brewed">
-                    <img src="menu-item5.jpg" alt="Item 5">
-                    <h3 class="item-name">Bia Tiger</h3>
-                    <p>Giá: 22,000 VNĐ</p>
-                    <button class="order-btn">Đặt hàng</button>
-                    <div class="item-details">
-                        <img src="menu-item5.jpg" alt="Item 5">
-                        <h3>Bia Tiger</h3>
-                        <p><strong>Nguyên liệu:</strong> Nước, lúa mạch, hoa bia</p>
-                        <p><strong>Loại chế biến:</strong> Ủ bia</p>
-                        <div class="related-items-container">
-                            <h4>Món liên quan:</h4>
-                            <div class="related-items"></div>
-                            <button class="show-more-btn">Xem thêm</button>
-                        </div>
+            </div>
+            <div class="menu-item" id="item-5" data-related="item-6">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Tôm Rim</span>
+                    <span class="price">160,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1625938144756-261f641cbb3e" alt="Tôm Rim">
+                <div class="item-details">
+                    <h3>Tôm Rim</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Tôm: 500g</li>
+                            <li>Nước mắm: 30ml</li>
+                            <li>Đường: 2 muỗng</li>
+                            <li>Tỏi: 2 tép</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Làm sạch tôm, ướp với gia vị.</p>
+                        <p>2. Rim tôm với tỏi và nước mắm.</p>
+                        <p>3. Nấu đến khi keo lại.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-5"></div>
+                        <button class="show-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="menu-item" data-ingredient="lemon" data-method="mixed">
-                    <img src="menu-item6.jpg" alt="Item 6">
-                    <h3 class="item-name">Soda Chanh</h3>
-                    <p>Giá: 15,000 VNĐ</p>
-                    <button class="order-btn">Đặt hàng</button>
-                    <div class="item-details">
-                        <img src="menu-item6.jpg" alt="Item 6">
-                        <h3>Soda Chanh</h3>
-                        <p><strong>Nguyên liệu:</strong> Chanh, soda, đường</p>
-                        <p><strong>Loại chế biến:</strong> Pha chế</p>
-                        <div class="related-items-container">
-                            <h4>Món liên quan:</h4>
-                            <div class="related-items"></div>
-                            <button class="show-more-btn">Xem thêm</button>
-                        </div>
+            </div>
+            <div class="menu-item" id="item-6" data-related="item-7">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Thịt Kho Trứng</span>
+                    <span class="price">130,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1600891964008-43c8b509c3b3" alt="Thịt Kho Trứng">
+                <div class="item-details">
+                    <h3>Thịt Kho Trứng</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Thịt ba chỉ: 400g</li>
+                            <li>Trứng gà: 4 quả</li>
+                            <li>Nước dừa: 200ml</li>
+                            <li>Gia vị: nước mắm, đường</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Luộc trứng, lột vỏ.</p>
+                        <li>2. Kho thịt với nước dừa và gia vị.</li>
+                        <li>3. Thêm trứng, kho đến khi thấm.</li>
+                    </ul>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-6"></div>
+                        <button class="show-btn">Show More</button>
                     </div>
                 </div>
-                <div class="menu-item" data-ingredient="beer" data-method="brewed">
-                    <img src="menu-item7.jpg" alt="Item 7">
-                    <h3 class="item-name">Bia Corona</h3>
-                    <p>Giá: 35,000 VNĐ</p>
-                    <button class="order-btn">Đặt hàng</button>
-                    <div class="item-details">
-                        <img src="menu-item7.jpg" alt="Item 7">
-                        <h3>Bia Corona</h3>
-                        <p><strong>Nguyên liệu:</strong> Nước, lúa mạch, ngô, hoa bia</p>
-                        <p><strong>Loại chế biến:</strong> Ủ bia</p>
-                        <div class="related-items-container">
-                            <h4>Món liên quan:</h4>
-                            <div class="related-items"></div>
-                            <button class="show-more-btn">Xem thêm</button>
-                        </div>
+            </div>
+            <div class="menu-item" id="item-7" data-related="item-8">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Canh Chua</span>
+                    <span class="price">90,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1627304332276-4d7f08f3b0d3" alt="Canh Chua">
+                <div class="item-details">
+                    <h3>Canh Chua</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Cá lóc: 500g</li>
+                            <li>Cà chua: 2 quả</li>
+                            <li>Dọc mùng: 100g</li>
+                            <li>Gia vị: me, nước mắm</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Nấu nước dùng với cà chua và me.</p>
+                        <p>2. Thêm cá và dọc mùng, nấu chín.</p>
+                        <p>3. Nêm nếm và dùng nóng.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-7"></div>
+                        <button class="show-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="menu-item" data-ingredient="pineapple" data-method="juiced">
-                    <img src="menu-item8.jpg" alt="Item 8">
-                    <h3 class="item-name">Nước Ép Dứa</h3>
-                    <p>Giá: 30,000 VNĐ</p>
-                    <button class="order-btn">Đặt hàng</button>
-                    <div class="item-details">
-                        <img src="menu-item8.jpg" alt="Item 8">
-                        <h3>Nước Ép Dứa</h3>
-                        <p><strong>Nguyên liệu:</strong> Dứa tươi</p>
-                        <p><strong>Loại chế biến:</strong> Ép</p>
-                        <div class="related-items-container">
-                            <h4>Món liên quan:</h4>
-                            <div class="related-items"></div>
-                            <button class="show-more-btn">Xem thêm</button>
-                        </div>
+            </div>
+            <div class="menu-item" id="item-8" data-related="item-9">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Mực Xào Sa Tế</span>
+                    <span class="price">140,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1625938144756-261f641cbb3e" alt="Mực Xào Sa Tế">
+                <div class="item-details">
+                    <h3>Mực Xào Sa Tế</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Mực tươi: 400g</li>
+                            <li>Sa tế: 30g</li>
+                            <li>Hành tây: 1 củ</li>
+                            <li>Gia vị: dầu ăn, tỏi</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Làm sạch mực, cắt miếng vừa ăn.</p>
+                        <p>2. Xào tỏi và sa tế, thêm mực và hành tây.</p>
+                        <p>3. Nêm nếm và dùng ngay.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-8"></div>
+                        <button class="show-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item" id="item-9" data-related="item-10">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Gỏi Ngó Sen</span>
+                    <span class="price">110,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-160650059" alt="Gỏi Ngó Sen">
+                <div class="item-details">
+                    <h3>Gỏi Ngó Sen</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Ngó sen: 300g</li>
+                            <li>Tôm: 100g</li>
+                            <li>Thịt heo: 100g</li>
+                            <li>Gia vị: nước mắm, chanh, ớt</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Ngâm ngó sen với chanh để giòn.</p>
+                        <p>2. Luộc tôm và thịt, trộn với ngó sen.</p>
+                        <p>3. Pha nước mắm chua ngọt, trộn đều.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-9"></div>
+                        <button class="show-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item" id="item-10" data-related="item-11">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Lẩu Hải Sản</span>
+                    <span class="price">200,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1627304332276" alt="Lẩu Hải Sản">
+                <div class="item-details">
+                    <h3>Lẩu Hải Sản</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Tôm: 200g</li>
+                            <li>Mực: 200g</li>
+                            <li>Nấm kim châm: 100g</li>
+                            <li>Gia vị: cà chua, sả, me</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Nấu nước dùng với sả và cà chua.</p>
+                        <p>2. Thêm hải sản và nấm, nấu chín.</p>
+                        <p>3. Dùng nóng với rau nhúng.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-10"></div>
+                        <button class="show-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item" id="item-11" data-related="item-12">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Bò Xào Hành Tây</span>
+                    <span class="price">140,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1600891964008" alt="Bò Xào Hành Tây">
+                <div class="item-details">
+                    <h3>Bò Xào Hành Tây</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Thịt bò: 300g</li>
+                            <li>Hành tây: 1 củ</li>
+                            <li>Ớt chuông: 1 quả</li>
+                            <li>Gia vị: nước tương, tỏi</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Ướp bò với gia vị 15 phút.</p>
+                        <p>2. Xào hành tây và ớt chuông.</p>
+                        <p>3. Thêm bò, xào nhanh tay.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-11"></div>
+                        <button class="show-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item" id="item-12" data-related="item-1">
+                <div class="menu-header">
+                    <button class="order-btn"><img src="https://via.placeholder.com/20" alt="Order"></button>
+                    <span class="item-name">Sườn Nướng</span>
+                    <span class="price">150,000 VNĐ</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1625938144756-261f641cbb3e" alt="Sườn Nướng">
+                <div class="item-details">
+                    <h3>Sườn Nướng</h3>
+                    <div class="info-section">
+                        <h4>Nguyên liệu:</h4>
+                        <ul>
+                            <li>Sườn heo: 500g</li>
+                            <li>Mật ong: 30ml</li>
+                            <li>Tỏi: 3 tép</li>
+                            <li>Gia vị: nước mắm, tiêu</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Cách chế biến:</h4>
+                        <p>1. Ướp sườn với mật ong và gia vị.</p>
+                        <p>2. Nướng sườn trên than hoa.</p>
+                        <p>3. Dùng nóng với rau sống.</p>
+                    </div>
+                    <div class="related-items-container">
+                        <h4>Món liên quan:</h4>
+                        <div class="related-items" id="related-12"></div>
+                        <button class="show-more-btn">Xem thêm</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="result-notification" id="result-notification"></div>
     <div class="result-notification" id="result-notification1"></div>
     <div class="result-notification" id="result-notification2"></div>
-
 
     <script src="script.js"></script>
 </body>
